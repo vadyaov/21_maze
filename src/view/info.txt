@@ -1,0 +1,37 @@
+  Together with the QPaintDevice and QPaintEngine classes, QPainter form the basis
+  for Qt's paint system.
+
+  QPainter is the class used to perform drawing operations.
+  QPaintDevice represents a device that can be painted on using a QPainter.
+  QPaintEngine provides the interface that the painter uses to draw onto different types of devices.
+
+
+
+1) QPainter: used to perform drawing operations.
+
+  * It can draw everything from simple lines to complex shapes like pies and chords.
+
+  * It can also draw aligned text and pixmaps.
+
+  * Normally, it draws in a "natural" coordinate system, but it can also do view
+    and world transformation.
+
+  * QPainter can operate on any object that inherits the QPaintDevice class!
+
+  * The common use of QPainter is inside a widget's paint event:
+      - Construct and customize (e.g. set the pen or the brush) the painter.
+      - Then draw.
+      - Remember to destroy the QPainter object after drawing.
+
+
+2) QPaintDevice: abstraction of a two-dimensional space that can be painted on using a QPainter
+
+  * Its default coordinate system has its origin located at the top-left position.
+
+  * X increases to the right and Y increases downwards. The unit is one pixel.
+
+
+3) QPaintEngine: provides an abstract definition of how QPainter draws to a given device
+   on a given platform.
+
+   * QPaintEngine is created and owned by the QPaintDevice that created it
