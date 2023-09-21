@@ -21,7 +21,7 @@ namespace maze {
         int rows, columns;
         istrm_ >> rows >> columns;
 
-        if (rows != columns)
+        if (rows != columns || rows > 50)
           throw std::invalid_argument("Incorrect size.");
 
         sz_ = rows;
