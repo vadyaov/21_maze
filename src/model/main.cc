@@ -1,11 +1,12 @@
-#include "maze.h"
+#include "../controller/controller.h"
 
 #include <iostream>
 
 int main() {
   try {
-  maze::Maze maze("../examples/maze_2.txt");
-  maze.print();
+  maze::Controller ctr;
+  ctr.ReadMaze("../examples/maze_1.txt");
+  ctr.print();
   } catch (const std::exception& e) {
     std::cout << e.what() << std::endl;
   }

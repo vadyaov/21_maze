@@ -1,10 +1,14 @@
 #include "window.h"
 #include "renderarea.h"
 
+#include "../controller/controller.h"
+
 #include <QGridLayout>
+#include <QFileDialog>
 
 Window::Window() {
-  render_area_ = new RenderArea;
+  maze::Controller controller;
+  render_area_ = new RenderArea(controller);
 
   Button *browse_button = CreateButton(tr("Browse"), SLOT(BrowseClicked()));
 
@@ -30,11 +34,11 @@ QSize Window::minimumSizeHint() const {
 }
 
 void Window::BrowseClicked() {
-  /* static int width = 1; */
-  /* QPen pen; */
-  /* pen.setWidth(width); */
-  /* render_area_->SetPen(pen); */
-  /* width += 1; */
+  QString filename = QFileDialog::getOpenFileName(this, tr("Open .txt maze"), // leak QFileDialog
+      "./../examples/", tr("Text files (*.txt)"));
+  std::cout << "filename: " << filename.toStdString()<< std::endl;
+  render_area_->ReadMazeFromFile(filename);
+  /* render_area_->ReadMazeFromFile("/home/vadim/Projects/School21/21_maze/src/examples/maze_1.txt"); */
 }
 
 Button* Window::CreateButton(const QString &text, const char *member) {

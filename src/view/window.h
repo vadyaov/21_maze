@@ -6,6 +6,7 @@
 #include "renderarea.h"
 #include "button.h"
 
+
 class Window : public QWidget {
   Q_OBJECT
 
@@ -20,6 +21,7 @@ class Window : public QWidget {
 
   private:
     Button *CreateButton(const QString &text, const char *member);
+
     RenderArea* render_area_;
 
 };

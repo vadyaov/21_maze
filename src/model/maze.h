@@ -10,8 +10,14 @@ namespace maze {
   class Maze {
     public:
       Maze() {}
-      Maze(const std::string&);
+      /* Maze(const std::string&); */
       // or mb use LoadMaze because of Generation Ideal Mazes next
+
+      void LoadMaze(const std::string& path);
+      std::size_t Size() const noexcept;
+
+      const std::vector<std::vector<bool>>& GetV() const noexcept;
+      const std::vector<std::vector<bool>>& GetH() const noexcept;
 
       void print() {
         std::cout << v_walls_.size() << ' ' << h_walls_.size() << std::endl;

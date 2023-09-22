@@ -15,10 +15,15 @@ add_compile_options(-fsanitize=address)
 add_link_options(-fsanitize=address)
 
 qt_add_executable(maze
+    model/maze.h model/maze.cc
+    model/loader.h
+
     view/main.cc
     view/renderarea.cc view/renderarea.h
     view/window.cc view/window.h
     view/button.cc view/button.h
+
+    controller/controller.cc controller/controller.h
 )
 
 target_link_libraries(maze PUBLIC Qt::Widgets)

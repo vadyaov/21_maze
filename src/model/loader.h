@@ -13,7 +13,7 @@ namespace maze {
 
       using wall_vector = std::vector<std::vector<bool>>;
 
-      MazeLoader() = delete;
+      /* MazeLoader() = delete; */
       MazeLoader(const std::string& path) : istrm_{path}, sz_{0} {
         if (!istrm_.is_open())
           throw std::invalid_argument("Incorrect path.");
