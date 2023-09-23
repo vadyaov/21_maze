@@ -27,7 +27,7 @@
 1 1 1 1 1 1 1 1 1 1
 ```
 
-![maze](../misc/images/maze.jpg)
+![maze](../misc/maze.jpg)
 
 ## Example 2
 
@@ -56,7 +56,7 @@
 1 1 1 1 1 1 1 1 1 1
 ```
 
-![maze10](../misc/images/maze10.jpg)
+![maze10](../misc/maze10.jpg)
 
 ## Example 3
 
@@ -105,4 +105,4 @@
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ```
 
-![maze20](../misc/images/maze20.jpg)
+![maze20](../misc/maze20.jpg)
