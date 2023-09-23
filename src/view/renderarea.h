@@ -3,7 +3,6 @@
 
 #include <QWidget>
 #include <QPen>
-#include <QBrush>
 
 #include "../controller/controller.h"
 

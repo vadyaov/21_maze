@@ -9,16 +9,17 @@
 namespace maze {
   class Maze {
     public:
-      Maze() {}
-      /* Maze(const std::string&); */
-      // or mb use LoadMaze because of Generation Ideal Mazes next
+      // genereted by compiler
+      /* Maze() {} */
 
       void LoadMaze(const std::string& path);
-      std::size_t Size() const noexcept;
 
+      /* Getters */
+      std::size_t Size() const noexcept;
       const std::vector<std::vector<bool>>& GetV() const noexcept;
       const std::vector<std::vector<bool>>& GetH() const noexcept;
 
+      /* debug */
       void print() {
         std::cout << v_walls_.size() << ' ' << h_walls_.size() << std::endl;
 
@@ -39,6 +40,6 @@ namespace maze {
         std::cout << std::endl;
       }
   };
-} // namespace s21
+} // namespace maze
 
 #endif // MAZE_H_

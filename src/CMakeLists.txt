@@ -16,7 +16,7 @@ add_link_options(-fsanitize=address)
 
 qt_add_executable(maze
     model/maze.h model/maze.cc
-    model/loader.h
+    model/loader.h model/loader.cc
 
     view/main.cc
     view/renderarea.cc view/renderarea.h
