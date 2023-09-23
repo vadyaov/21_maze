@@ -20,4 +20,10 @@ namespace maze {
     return ceils_;
   }
 
+  Ceil& Maze::operator()(int i, int j) {
+    if (i < 0 || j < 0)
+      throw std::invalid_argument("Incorrect i or j for operator()");
+    return ceils_[i * std::sqrt(Size()) + j];
+  }
+
 }

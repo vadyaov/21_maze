@@ -20,8 +20,7 @@ void RenderArea::paintEvent(QPaintEvent * /* event */) {
   QPainter painter(this);
   painter.setPen(pen);
 
-  const auto& ceils = ctr_.GetCeils();
-  std::size_t sz = std::sqrt(ceils.size());
+  std::size_t sz = std::sqrt(ctr_.Size());
 
   if (sz) {
     painter.drawLine(QPoint(1, 1), QPoint(1, 499));
@@ -41,10 +40,10 @@ void RenderArea::paintEvent(QPaintEvent * /* event */) {
       QPointF point3(y, x);
       QPointF point4(point3 + QPoint(length, 0.0f));
 
-      if (ceils[i * sz + j].IsRight())
+      if (ctr_.At(i, j).IsRight())
         painter.drawLine(point1, point2);
 
-      if (ceils[j * sz + i].IsDown())
+      if (ctr_.At(j, i).IsDown())
         painter.drawLine(point3, point4);
     }
 }

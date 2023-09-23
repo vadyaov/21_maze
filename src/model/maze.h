@@ -11,11 +11,13 @@ namespace maze {
 
   class Ceil {
     public:
-      bool IsRight() const noexcept {return r_wall;}
-      bool IsDown() const noexcept {return d_wall;}
+      Ceil() : r_wall{true}, d_wall{true} {}
 
-      bool& GetRight() noexcept {return r_wall;}
-      bool& GetDown() noexcept {return d_wall;}
+      bool IsRight() const noexcept { return r_wall; }
+      bool IsDown() const noexcept { return d_wall; }
+
+      bool& GetRight() noexcept { return r_wall; }
+      bool& GetDown() noexcept { return d_wall; }
 
     private:
       bool r_wall;
@@ -31,6 +33,9 @@ namespace maze {
       /* Getters */
       std::size_t Size() const noexcept;
       const std::vector<Ceil>& GetCeils() const & noexcept;
+
+      /* Accessor */
+      Ceil& operator()(int, int);
 
       /* debug */
       void print() {
