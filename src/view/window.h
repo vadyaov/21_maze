@@ -16,13 +16,10 @@ class Window : public QWidget {
     QSize sizeHint() const override;
     QSize minimumSizeHint() const override;
 
-    private slots:
-      void BrowseClicked();
-
   private:
-    Button *CreateButton(const QString &text, const char *member);
-
     RenderArea* render_area_;
+
+    Button *CreateButton(const QString &text, const char *member);
 
 };
 

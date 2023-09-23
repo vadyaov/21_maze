@@ -11,7 +11,10 @@ class RenderArea : public QWidget {
 
   public:
     explicit RenderArea(maze::Controller& controller, QWidget* parent = nullptr);
-    void ReadMazeFromFile(const QString&);
+
+  public slots:
+    void BrowseClicked();
+    void GenerateClicked();
 
   protected:
     void paintEvent(QPaintEvent *event) override;

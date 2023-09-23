@@ -4,24 +4,21 @@
 #include <iostream>
 
 #include <string>
-#include <vector>
 #include <fstream>
+
+#include "maze.h"
 
 namespace maze {
   class MazeLoader {
     public:
 
-      using wall_vector = std::vector<std::vector<bool>>;
-
       MazeLoader(const std::string& path);
 
-      void ReadWalls(wall_vector& vertical, wall_vector& horizontal);
+      void ReadWalls(std::vector<Ceil>& ceils);
 
     private:
       std::ifstream istrm_;
       int sz_;
-
-      void ReadSingleArray(wall_vector& arr);
   };
 } // namespace maze
 

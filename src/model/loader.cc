@@ -1,31 +1,31 @@
 #include "loader.h"
 
-maze::MazeLoader::MazeLoader(const std::string& path) : istrm_{path}, sz_{0} {
-  if (!istrm_.is_open())
-    throw std::invalid_argument("Incorrect path.");
+namespace maze {
+  MazeLoader::MazeLoader(const std::string& path) : istrm_{path}, sz_{0} {
+    if (!istrm_.is_open())
+      throw std::invalid_argument("Incorrect path.");
 
-  int rows, columns;
-  istrm_ >> rows >> columns;
+    int rows, columns;
+    istrm_ >> rows >> columns;
 
-  if (rows != columns || rows > 50 || rows < 2)
-    throw std::invalid_argument("Incorrect size.");
+    if (rows != columns || rows > 50 || rows < 2)
+      throw std::invalid_argument("Incorrect size.");
 
-  sz_ = rows;
-}
+    sz_ = rows;
+  }
 
-void maze::MazeLoader::ReadWalls(wall_vector& vertical, wall_vector& horizontal) {
-  ReadSingleArray(vertical);
-  ReadSingleArray(horizontal);
-}
+  void MazeLoader::ReadWalls(std::vector<Ceil>& ceils) {
+    int value;
+    ceils.resize(sz_ * sz_);
+    for (std::size_t i = 0; i < ceils.size(); ++i) {
+        istrm_ >> value;
+        ceils[i].GetRight() = value;
+    }
 
-void maze::MazeLoader::ReadSingleArray(wall_vector& arr) {
-  int value;
-  arr.resize(sz_);
-  for (int i = 0; i < sz_; ++i) {
-    arr[i].resize(sz_);
-    for (int j = 0; j < sz_; ++j) {
-      istrm_ >> value;
-      arr[i][j] = value;
+    for (std::size_t i = 0; i < ceils.size(); ++i) {
+        istrm_ >> value;
+        ceils[i].GetDown() = value;
     }
   }
-}
+
+} // namespace maze
