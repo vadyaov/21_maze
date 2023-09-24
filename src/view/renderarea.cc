@@ -61,4 +61,6 @@ void RenderArea::BrowseClicked() {
 }
 
 void RenderArea::GenerateClicked() {
+  ctr_.GenMaze(15);
+  update();
 }

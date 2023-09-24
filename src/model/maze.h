@@ -28,7 +28,7 @@ namespace maze {
     public:
 
       void LoadMaze(const std::string& path);
-      void Generate(std::size_t size);
+      void Generate(int size);
 
       /* Getters */
       std::size_t Size() const noexcept;
@@ -59,6 +59,7 @@ namespace maze {
           }
         }
 
+        std::cout << std::endl;
       }
 
     private:
