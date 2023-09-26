@@ -6,9 +6,8 @@
 #include <QPainter>
 #include <QFileDialog>
 
-RenderArea::RenderArea(maze::Controller& controller, QWidget* parent) : QWidget(parent), ctr_(controller) {
+RenderArea::RenderArea(QWidget* parent) : QWidget(parent), ctr_() {
   pen.setWidth(2);
-  pen.setBrush(Qt::black);
 
   setBackgroundRole(QPalette::Midlight);
   setAutoFillBackground(true);
@@ -46,6 +45,17 @@ void RenderArea::paintEvent(QPaintEvent * /* event */) {
       if (ctr_.At(j, i).IsDown())
         painter.drawLine(point3, point4);
     }
+
+  if (!point1.isNull()) {
+    painter.setPen(Qt::red);
+    painter.drawEllipse(point1, 3, 3);
+  }
+
+  if (!point2.isNull()) {
+    painter.setPen(Qt::blue);
+    painter.drawEllipse(point2, 3, 3);
+  }
+    painter.setPen(Qt::black);
 }
 
 void RenderArea::BrowseClicked() {
@@ -63,4 +73,66 @@ void RenderArea::BrowseClicked() {
 void RenderArea::GenerateClicked() {
   ctr_.GenMaze(15);
   update();
+}
+
+void RenderArea::FindSolutionClicked() {
+  float ceil_size = 504.0f / std::sqrt(ctr_.Size());
+
+  int row1 = point1.y() / ceil_size;
+  int col1 = point1.x() / ceil_size;
+
+  int row2 = point2.y() / ceil_size;
+  int col2 = point2.x() / ceil_size;
+
+  std::cout << "Point1 : " << row1 << " " << col1 << std::endl;
+  std::cout << "Point2 : " << row2 << " " << col2 << std::endl;
+
+  /* ctr_.FindSolution(row1 col1 row2 col2) */
+}
+
+void RenderArea::mousePressEvent(QMouseEvent *event) {
+  QPoint p = event->pos();
+  int x = p.x(), y = p.y();
+
+  if (event->button() == Qt::LeftButton) {
+    HandleLeftMouseEvent(x, y);
+    update();
+  } else if (event->button() == Qt::RightButton) {
+    HandleRightMouseEvent(x, y);
+    update();
+  }
+
+}
+
+void RenderArea::HandleLeftMouseEvent(int x, int y) {
+  if (!point1.isNull() && !point2.isNull()) {
+    static bool first_print = true;
+
+    if (first_print) {
+      point1 = QPointF(x, y);
+      first_print = false;
+    } else {
+      point2 = QPointF(x, y);
+      first_print = true;
+    }
+
+  } else if (!point1.isNull())
+    point2 = QPointF(x, y);
+  else
+    point1 = QPointF(x, y);
+}
+
+void RenderArea::HandleRightMouseEvent(int x, int y) {
+  if (IsPointNear(point1, x, y)) {
+    point1.setX(0);
+    point1.setY(0);
+  } else if (IsPointNear(point2, x, y)) {
+    point2.setX(0);
+    point2.setY(0);
+  }
+}
+
+bool RenderArea::IsPointNear(const QPointF& point, int x, int y) const {
+  return (x >= point.x() - 5 && x <= point.x() + 5) &&
+         (y >= point.y() - 5 && y <= point.y() + 5);
 }

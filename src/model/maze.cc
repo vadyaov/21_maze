@@ -15,6 +15,8 @@ namespace maze {
     ceils_.resize(size * size);
     std::vector<int> set(size * size);
 
+    std::srand(std::time(nullptr));
+
     for (int i = 0; i < size * size; ++i)
       set[i] = i;
 
@@ -37,7 +39,6 @@ namespace maze {
       }
     }
 
-    std::srand(std::time(nullptr));
 
   }
 
