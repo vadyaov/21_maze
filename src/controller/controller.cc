@@ -10,10 +10,13 @@ namespace maze {
     m.Generate(size);
   }
 
+  std::vector<Maze::pos> Controller::FindSolution(Maze::pos first, Maze::pos second) {
+    return m.FindSolution(first, second);
+  }
+
   std::size_t Controller::Size() const noexcept {
     return m.Size();
   }
-
 
   const std::vector<Ceil>& Controller::GetCeils() const & noexcept {
     return m.GetCeils();

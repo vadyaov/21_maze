@@ -19,7 +19,7 @@ void RenderArea::paintEvent(QPaintEvent * /* event */) {
   QPainter painter(this);
   painter.setPen(pen);
 
-  std::size_t sz = std::sqrt(ctr_.Size());
+  std::size_t sz = ctr_.Size();
 
   if (sz) {
     painter.drawLine(QPoint(1, 1), QPoint(1, 499));
@@ -76,7 +76,7 @@ void RenderArea::GenerateClicked() {
 }
 
 void RenderArea::FindSolutionClicked() {
-  float ceil_size = 504.0f / std::sqrt(ctr_.Size());
+  float ceil_size = 504.0f / ctr_.Size();
 
   int row1 = point1.y() / ceil_size;
   int col1 = point1.x() / ceil_size;
@@ -84,10 +84,7 @@ void RenderArea::FindSolutionClicked() {
   int row2 = point2.y() / ceil_size;
   int col2 = point2.x() / ceil_size;
 
-  std::cout << "Point1 : " << row1 << " " << col1 << std::endl;
-  std::cout << "Point2 : " << row2 << " " << col2 << std::endl;
-
-  /* ctr_.FindSolution(row1 col1 row2 col2) */
+  ctr_.FindSolution({row1, col1}, {row2, col2});
 }
 
 void RenderArea::mousePressEvent(QMouseEvent *event) {

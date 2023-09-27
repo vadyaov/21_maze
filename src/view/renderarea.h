@@ -33,7 +33,6 @@ class RenderArea : public QWidget {
 
     QPointF point1;
     QPointF point2;
-
 };
 
 #endif // RENDERAREA_H_
