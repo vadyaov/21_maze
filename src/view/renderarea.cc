@@ -4,11 +4,10 @@
 #include <iostream>
 
 #include <QPainter>
+#include <QPainterPath>
 #include <QFileDialog>
 
-RenderArea::RenderArea(QWidget* parent) : QWidget(parent), ctr_() {
-  pen.setWidth(2);
-
+RenderArea::RenderArea(QWidget* parent) : QWidget(parent) {
   setBackgroundRole(QPalette::Midlight);
   setAutoFillBackground(true);
   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -17,7 +16,8 @@ RenderArea::RenderArea(QWidget* parent) : QWidget(parent), ctr_() {
 
 void RenderArea::paintEvent(QPaintEvent * /* event */) {
   QPainter painter(this);
-  painter.setPen(pen);
+  QPainterPath painterpath;
+  painter.setPen(QPen(Qt::black, 2));
 
   std::size_t sz = ctr_.Size();
 
@@ -55,7 +55,15 @@ void RenderArea::paintEvent(QPaintEvent * /* event */) {
     painter.setPen(Qt::blue);
     painter.drawEllipse(point2, 3, 3);
   }
-    painter.setPen(Qt::black);
+
+  if (!solution.empty()) {
+    painterpath.moveTo(point2);
+    for (const auto& point : solution)
+      painterpath.lineTo(point);
+
+    painterpath.lineTo(point1);
+    painter.drawPath(painterpath);
+  }
 }
 
 void RenderArea::BrowseClicked() {
@@ -64,6 +72,8 @@ void RenderArea::BrowseClicked() {
   std::cout << "filename: " << filename.toStdString()<< std::endl;
   try {
     ctr_.ReadMaze(filename.toStdString());
+    point1 = point2 = {0, 0};
+    solution.clear();
     update();
   } catch (const std::invalid_argument& e) {
     // some actions on invalid file
@@ -72,30 +82,54 @@ void RenderArea::BrowseClicked() {
 
 void RenderArea::GenerateClicked() {
   ctr_.GenMaze(15);
+  point1 = point2 = {0, 0};
+  solution.clear();
   update();
 }
 
-void RenderArea::FindSolutionClicked() {
+
+std::pair<int, int> RenderArea::ToCeilCoord(int x, int y) {
   float ceil_size = 504.0f / ctr_.Size();
 
-  int row1 = point1.y() / ceil_size;
-  int col1 = point1.x() / ceil_size;
+  int row = y / ceil_size;
+  int col = x / ceil_size;
 
-  int row2 = point2.y() / ceil_size;
-  int col2 = point2.x() / ceil_size;
+  return {row, col};
+}
 
-  ctr_.FindSolution({row1, col1}, {row2, col2});
+void RenderArea::FindSolutionClicked() {
+  solution.clear();
+  std::pair<int, int> pt1 = ToCeilCoord(point1.x(), point1.y());
+  std::pair<int, int> pt2 = ToCeilCoord(point2.x(), point2.y());
+
+  const auto solution_ceils = ctr_.FindSolution(pt1, pt2);
+  solution.reserve(solution_ceils.size());
+
+  // using transform algo from STL
+
+  /* std::transform(solution_ceils.cbegin(), solution_ceils.cend(), */
+  /*     std::back_inserter(solution), [this](const std::pair<int, int>& coord) { */
+  /*     return FindCenterPos(coord); }); */
+
+  // simple understandable way of transforming
+  for (const auto& coordinate : solution_ceils)
+    solution.push_back(FindCenterPos(coordinate));
+
+  update();
 }
 
 void RenderArea::mousePressEvent(QMouseEvent *event) {
+  if (!ctr_.Size()) return; // stop handling events if no maze on board
+
   QPoint p = event->pos();
-  int x = p.x(), y = p.y();
 
   if (event->button() == Qt::LeftButton) {
-    HandleLeftMouseEvent(x, y);
+    HandleLeftMouseEvent(p.x(), p.y());
+    solution.clear();
     update();
   } else if (event->button() == Qt::RightButton) {
-    HandleRightMouseEvent(x, y);
+    HandleRightMouseEvent(p.x(), p.y());
+    solution.clear();
     update();
   }
 
@@ -103,13 +137,23 @@ void RenderArea::mousePressEvent(QMouseEvent *event) {
 
 void RenderArea::HandleLeftMouseEvent(int x, int y) {
   if (!point1.isNull() && !point2.isNull()) {
+
     static bool first_print = true;
 
+  /* IDK WHY but center alignment of doesn't work for the first two points after BrowseClicked */
     if (first_print) {
-      point1 = QPointF(x, y);
+      /* without center alignment */
+      /* point1 = QPointF(x, y); */
+
+      /* with center alignment */
+      point1 = FindCenterPos(ToCeilCoord(x, y));
       first_print = false;
     } else {
-      point2 = QPointF(x, y);
+      /* without center alignment */
+      /* point2 = QPointF(x, y); */
+
+      /* with center alignment */
+      point2 = FindCenterPos(ToCeilCoord(x, y));
       first_print = true;
     }
 
@@ -132,4 +176,14 @@ void RenderArea::HandleRightMouseEvent(int x, int y) {
 bool RenderArea::IsPointNear(const QPointF& point, int x, int y) const {
   return (x >= point.x() - 5 && x <= point.x() + 5) &&
          (y >= point.y() - 5 && y <= point.y() + 5);
+}
+
+QPointF RenderArea::FindCenterPos(const std::pair<int, int>& coord) {
+  const std::size_t sz = ctr_.Size();
+  const float ceil_sz = 500.0f / sz; // mb 504
+
+  float x = ceil_sz / 2.0f + coord.second * ceil_sz;
+  float y = ceil_sz / 2.0f + coord.first * ceil_sz;
+
+  return QPointF(x, y);
 }

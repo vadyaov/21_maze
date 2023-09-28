@@ -10,7 +10,7 @@ namespace maze {
     m.Generate(size);
   }
 
-  std::vector<Maze::pos> Controller::FindSolution(Maze::pos first, Maze::pos second) {
+  std::vector<Maze::Coord> Controller::FindSolution(Maze::Coord first, Maze::Coord second) {
     return m.FindSolution(first, second);
   }
 

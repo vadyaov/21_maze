@@ -26,13 +26,15 @@ class RenderArea : public QWidget {
     void HandleLeftMouseEvent(int x, int y);
     void HandleRightMouseEvent(int x, int y);
     bool IsPointNear(const QPointF& point, int x, int y) const;
+    QPointF FindCenterPos(const std::pair<int, int>& coord);
+    std::pair<int, int> ToCeilCoord(int x, int y);
 
   private:
     maze::Controller ctr_;
-    QPen pen;
 
     QPointF point1;
     QPointF point2;
+    std::vector<QPointF> solution;
 };
 
 #endif // RENDERAREA_H_

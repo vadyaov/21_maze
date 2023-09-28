@@ -42,74 +42,85 @@ namespace maze {
       }
   }
 
-  std::vector<Maze::pos> Maze::FindSolution(const pos& frst, const pos& scnd) {
+  std::vector<Maze::Coord> Maze::FindSolution(const Coord& frst, const Coord& scnd) {
     if (frst == scnd)
       throw std::logic_error("'Begin' and 'End' ceils are the same");
 
     ClearSteps();
 
-    std::cout << "First point\nx " << frst.first << ", y " << frst.second << std::endl;
-    std::cout << "Second point\nx " << scnd.first << ", y " << scnd.second << std::endl;
+    /* std::cout << "First point\nx " << frst.first << ", y " << frst.second << std::endl; */
+    /* std::cout << "Second point\nx " << scnd.first << ", y " << scnd.second << std::endl; */
 
     MakeWave(frst.first, frst.second, 0);
-    GetCeil(frst.first, frst.second).Step() = 0;
-
-    print_steps();
 
     return FindShortestWay(scnd);
   }
 
   void Maze::MakeWave(int row, int column, std::size_t steps) {
     Ceil& current_ceil = GetCeil(row, column);
-    int &step = current_ceil.Step();
 
-    if (step != 0) return;
-    step = steps;
+    if (current_ceil.visited == true) return;
+
+    current_ceil.step = steps;
+    current_ceil.visited = true;
 
     if (!current_ceil.IsRight())
       MakeWave(row, column + 1, steps + 1);
+
     if (!current_ceil.IsDown())
       MakeWave(row + 1, column, steps + 1);
+
     if (column > 0 && !GetCeil(row, column - 1).IsRight())
       MakeWave(row, column - 1, steps + 1);
+
     if (row > 0 && !GetCeil(row - 1, column).IsDown())
       MakeWave(row - 1, column, steps + 1);
   }
 
-  std::vector<Maze::pos> Maze::FindShortestWay(const pos& biggest_wave) {
-    std::vector<Maze::pos> shortest;
-    for (pos next = biggest_wave; GetCeil(next.first, next.second).Step() != 0; next = FindNextCeil(next)) {
+  std::vector<Maze::Coord> Maze::FindShortestWay(const Coord& finish) {
+    std::vector<Maze::Coord> shortest;
+    Coord next{finish};
+
+    while (GetCeil(next.first, next.second).step != 0) {
+      next = FindNextCeil(next);
       shortest.push_back(next);
     }
-
-    for (auto p : shortest) {
-      std::cout << p.first << "  " << p.second << std::endl;
-    }
+    /* for (auto i : shortest) */
+    /*   std::cout << i.first << ' ' << i.second << std::endl; */
 
     return shortest;
   }
 
-  // Bad function cause i'm tired and cant't think good
-  // Got Something very bad and infinite recursion))
-  Maze::pos Maze::FindNextCeil(const pos& current) {
-    const std::size_t i = current.first, j = current.second;
-    const int current_step = GetCeil(i, j).Step();
-    std::cout << "Current step = " << current_step << std::endl;
-    pos p;
+  Maze::Coord Maze::FindNextCeil(const Coord& current) {
+    const std::size_t i = current.first;
+    const std::size_t j = current.second;
+    const int current_step = GetCeil(i, j).step;
 
-    if (j > 0 && GetCeil(i, j - 1).Step() == current_step - 1 && !GetCeil(i, j - 1).IsRight())
-      p = {i, j - 1};
-    else if (i > 0 && GetCeil(i - 1, j).Step() == current_step - 1 && !GetCeil(i - 1, j).IsDown())
-      p = {i - 1, j};
-    else if (j < Size() - 1 && GetCeil(i, j + 1).Step() == current_step - 1 && !GetCeil(i, j + 1).IsRight())
-      p = {i, j + 1};
-    else if (i < Size() - 1 && GetCeil(i + 1, j).Step() == current_step - 1 && !GetCeil(i + 1, j).IsDown())
-      p = {i + 1, j};
-    else {
-      std::cout << "Something very BAD\n";
+    // ceil is not on the left side so we can check (row, col - 1) ceil
+    if (j != 0) {
+      if (GetCeil(i, j - 1).step == current_step - 1 && !GetCeil(i, j - 1).IsRight())
+        return {i, j - 1};
     }
 
-    return p;
+    // ceil is not on the top so we can check (row - 1, col) ceil
+    if (i != 0) {
+      if (GetCeil(i - 1, j).step == current_step - 1 && !GetCeil(i - 1, j).IsDown())
+        return {i - 1, j};
+    }
+
+    // ceil is not on the right side so we can check (row, col + 1)
+    if (j != Size() - 1) {
+      if (GetCeil(i, j + 1).step == current_step - 1 && !GetCeil(i, j).IsRight())
+        return {i, j + 1};
+    }
+
+    // ceil is not on the bot so we can check (row + 1, col)
+    if (i != Size() - 1) {
+      if (GetCeil(i + 1, j).step == current_step - 1 && !GetCeil(i, j).IsDown())
+        return {i + 1, j};
+    }
+
+    throw std::logic_error("Impassable maze");
   }
 
   std::size_t Maze::Size() const noexcept {

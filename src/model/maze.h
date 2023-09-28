@@ -13,7 +13,10 @@ namespace maze {
 
   class Ceil {
     public:
-      Ceil() : r_wall{true}, d_wall{true}, step{0} {}
+      int step = 0;
+      bool visited = false;
+
+      Ceil() : r_wall{true}, d_wall{true} {}
 
       bool IsRight() const noexcept { return r_wall; }
       bool IsDown() const noexcept { return d_wall; }
@@ -21,24 +24,19 @@ namespace maze {
       bool& GetRight() noexcept { return r_wall; }
       bool& GetDown() noexcept { return d_wall; }
 
-      int& Step() { return step; }
-      const int& Step() const { return step; }
-
     private:
       bool r_wall;
       bool d_wall;
-
-      int step;
   };
 
   class Maze {
     public:
 
-      using pos = std::pair<int, int>;
+      using Coord = std::pair<int, int>;
 
       void LoadMaze(const std::string& path);
       void Generate(int size);
-      std::vector<pos> FindSolution(const pos& start, const pos& finish);
+      std::vector<Coord> FindSolution(const Coord& start, const Coord& finish);
 
       /* Getters */
       std::size_t Size() const noexcept;
@@ -78,7 +76,7 @@ namespace maze {
 
       void print_steps() {
         for (std::size_t i = 0, j = 1; i < ceils_.size(); ++i, ++j) {
-          std::cout << ceils_[i].Step() << ' ';
+          std::cout << ceils_[i].step << ' ';
           if (j == std::sqrt(ceils_.size())) {
             std::cout << std::endl;
             j = 0;
@@ -91,11 +89,13 @@ namespace maze {
 
       void MakeWave(int row, int column, std::size_t steps);
       void ClearSteps() {
-        for (Ceil& c : ceils_)
-          c.Step() = 0;
+        for (Ceil& c : ceils_) {
+          c.step = 0;
+          c.visited = false;
+        }
       }
-      std::vector<pos> FindShortestWay(const pos&);
-      pos FindNextCeil(const pos& begin);
+      std::vector<Coord> FindShortestWay(const Coord&);
+      Coord FindNextCeil(const Coord& begin);
   };
 } // namespace maze
 
