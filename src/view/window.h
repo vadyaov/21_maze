@@ -5,6 +5,7 @@
 
 #include "renderarea.h"
 #include "button.h"
+#include "label.h"
 
 
 class Window : public QWidget {
@@ -14,12 +15,12 @@ class Window : public QWidget {
     Window();
 
     QSize sizeHint() const override;
-    QSize minimumSizeHint() const override;
 
   private:
     RenderArea* render_area_;
 
     Button *CreateButton(const QString &text, const char *member);
+    Label *CreateLabel(const QString &text);
 
 };
 

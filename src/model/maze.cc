@@ -48,10 +48,8 @@ namespace maze {
 
     ClearSteps();
 
-    /* std::cout << "First point\nx " << frst.first << ", y " << frst.second << std::endl; */
-    /* std::cout << "Second point\nx " << scnd.first << ", y " << scnd.second << std::endl; */
-
     MakeWave(frst.first, frst.second, 0);
+    /* print_steps(); */
 
     return FindShortestWay(scnd);
   }
@@ -78,6 +76,9 @@ namespace maze {
   }
 
   std::vector<Maze::Coord> Maze::FindShortestWay(const Coord& finish) {
+    if (GetCeil(finish.first, finish.second).step == 0)
+      throw std::runtime_error("Solution doesnt't exist.");
+
     std::vector<Maze::Coord> shortest;
     Coord next{finish};
 
@@ -85,8 +86,6 @@ namespace maze {
       next = FindNextCeil(next);
       shortest.push_back(next);
     }
-    /* for (auto i : shortest) */
-    /*   std::cout << i.first << ' ' << i.second << std::endl; */
 
     return shortest;
   }
@@ -145,10 +144,4 @@ namespace maze {
     return ceils_;
   }
 
-  Ceil& Maze::operator()(int i, int j) {
-    if (i < 0 || j < 0 || (size_t)i > Size() || (size_t)j > Size())
-      throw std::invalid_argument("Incorrect i or j for operator()");
-    return ceils_[i * Size() + j];
-  }
-
-}
+} // namespace maze

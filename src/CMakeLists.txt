@@ -19,9 +19,10 @@ qt_add_executable(maze
     model/loader.h model/loader.cc
 
     view/main.cc
-    view/renderarea.cc view/renderarea.h
+    view/renderarea.cc view/renderarea_utils.cc view/renderarea.h
     view/window.cc view/window.h
     view/button.cc view/button.h
+    view/label.cc view/label.h
 
     controller/controller.cc controller/controller.h
 )

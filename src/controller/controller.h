@@ -15,7 +15,8 @@ namespace maze {
       std::size_t Size() const noexcept;
       const std::vector<Ceil>& GetCeils() const & noexcept;
 
-      Ceil& At(int i, int j) { return m(i, j); }
+      Ceil& At(int i, int j) { return m.GetCeil(i, j); }
+      const Ceil& At(int i, int j) const { return m.GetCeil(i, j); }
 
     private:
       Maze m;

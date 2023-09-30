@@ -41,13 +41,11 @@ namespace maze {
       /* Getters */
       std::size_t Size() const noexcept;
 
+      /* Accessor */
       Ceil& GetCeil(int row, int col);
       const Ceil& GetCeil(int row, int col) const;
 
       const std::vector<Ceil>& GetCeils() const & noexcept;
-
-      /* Accessor */
-      Ceil& operator()(int, int);
 
       /* debug */
       void print() {

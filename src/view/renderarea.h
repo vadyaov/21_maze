@@ -2,10 +2,13 @@
 #define RENDERAREA_H_
 
 #include <QWidget>
-#include <QPen>
-#include <QMouseEvent>
 
 #include "../controller/controller.h"
+
+QT_BEGIN_NAMESPACE
+class QPainter;
+class QMouseEvent;
+QT_END_NAMESPACE
 
 class RenderArea : public QWidget {
   Q_OBJECT
@@ -18,11 +21,18 @@ class RenderArea : public QWidget {
     void GenerateClicked();
     void FindSolutionClicked();
 
+  signals:
+    void ErrorOccured(const QString& msg);
+
   protected:
     void paintEvent(QPaintEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
 
   private:
+    void DrawMaze(QPainter& p);
+    void DrawPoints(QPainter& p);
+    void DrawSolution(QPainter& p);
+
     void HandleLeftMouseEvent(int x, int y);
     void HandleRightMouseEvent(int x, int y);
     bool IsPointNear(const QPointF& point, int x, int y) const;
