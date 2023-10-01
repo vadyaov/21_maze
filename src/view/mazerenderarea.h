@@ -1,8 +1,7 @@
 #ifndef RENDERAREA_H_
 #define RENDERAREA_H_
 
-#include <QWidget>
-
+#include "base_render.h"
 #include "../controller/controller.h"
 
 QT_BEGIN_NAMESPACE
@@ -10,15 +9,15 @@ class QPainter;
 class QMouseEvent;
 QT_END_NAMESPACE
 
-class RenderArea : public QWidget {
+class MazeRenderArea : public BaseRenderArea {
   Q_OBJECT
 
   public:
-    explicit RenderArea(QWidget* parent = nullptr);
+    explicit MazeRenderArea(QWidget* parent = nullptr);
 
   public slots:
-    void BrowseClicked();
-    void GenerateClicked();
+    void BrowseClicked() override;
+    void GenerateClicked() override;
     void FindSolutionClicked();
 
   signals:

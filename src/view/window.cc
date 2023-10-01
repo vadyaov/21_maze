@@ -1,16 +1,15 @@
 #include "window.h"
-#include "renderarea.h"
 
 #include <QGridLayout>
 #include <QVBoxLayout>
 
-Window::Window() : render_area_{new RenderArea(this)} {
+Window::Window() : render_area_{new MazeRenderArea(this)} {
   Button *browse_button = CreateButton(tr("Browse"), SLOT(BrowseClicked()));
   Button *generate_button = CreateButton(tr("Generate"), SLOT(GenerateClicked()));
   Button *findsol_button = CreateButton(tr("Find path"), SLOT(FindSolutionClicked()));
 
   Label *err_label = CreateLabel(tr("HELLO!"));
-  connect(render_area_, &RenderArea::ErrorOccured, err_label, &Label::HandleError);
+  connect(render_area_, &MazeRenderArea::ErrorOccured, err_label, &Label::HandleError);
 
   QGridLayout *main_layout = new QGridLayout;
   QVBoxLayout *buttons_layout = new QVBoxLayout;
@@ -27,7 +26,6 @@ Window::Window() : render_area_{new RenderArea(this)} {
   setLayout(main_layout);
 
   setFixedSize(750, 580);
-  setWindowTitle(tr("Maze & Cave"));
 }
 
 QSize Window::sizeHint() const {

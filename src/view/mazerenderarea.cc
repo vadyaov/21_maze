@@ -1,4 +1,4 @@
-#include "renderarea.h"
+#include "mazerenderarea.h"
 
 #include <cmath>
 #include <iostream>
@@ -8,14 +8,10 @@
 #include <QFileDialog>
 #include <QMouseEvent>
 
-RenderArea::RenderArea(QWidget* parent) : QWidget(parent) {
-  setBackgroundRole(QPalette::Midlight);
-  setAutoFillBackground(true);
-  setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-  this->setFixedSize(500, 500);
+MazeRenderArea::MazeRenderArea(QWidget* parent) : BaseRenderArea(parent) {
 }
 
-void RenderArea::paintEvent(QPaintEvent * /* event */) {
+void MazeRenderArea::paintEvent(QPaintEvent * /* event */) {
   QPainter painter(this);
   painter.setPen(QPen(Qt::black, 2));
 
@@ -24,7 +20,7 @@ void RenderArea::paintEvent(QPaintEvent * /* event */) {
   DrawSolution(painter);
 }
 
-void RenderArea::BrowseClicked() {
+void MazeRenderArea::BrowseClicked() {
   QString filename = QFileDialog::getOpenFileName(this, tr("Open .txt maze"), // leak QFileDialog
       "./examples/", tr("Text files (*.txt)"));
   QFileInfo fileinfo(filename);
@@ -39,7 +35,7 @@ void RenderArea::BrowseClicked() {
   }
 }
 
-void RenderArea::GenerateClicked() {
+void MazeRenderArea::GenerateClicked() {
   int size = 10;
   ctr_.GenMaze(size);
   point1 = point2 = {0, 0};
@@ -48,7 +44,7 @@ void RenderArea::GenerateClicked() {
   update();
 }
 
-void RenderArea::FindSolutionClicked() {
+void MazeRenderArea::FindSolutionClicked() {
   solution.clear();
 
   std::pair<int, int> pt1 = ToCeilCoord(point1.x(), point1.y());
@@ -75,7 +71,7 @@ void RenderArea::FindSolutionClicked() {
   }
 }
 
-void RenderArea::mousePressEvent(QMouseEvent *event) {
+void MazeRenderArea::mousePressEvent(QMouseEvent *event) {
   if (!ctr_.Size()) return;
 
   QPoint p = event->pos();

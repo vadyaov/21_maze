@@ -1,4 +1,4 @@
-#include "renderarea.h"
+#include "mazerenderarea.h"
 
 #include <QPainter>
 #include <QPainterPath>
@@ -8,7 +8,7 @@ class QPainter;
 class QPainterPath;
 QT_END_NAMESPACE
 
-void RenderArea::DrawMaze(QPainter& p) {
+void MazeRenderArea::DrawMaze(QPainter& p) {
   std::size_t sz = ctr_.Size();
 
   if (sz) {
@@ -38,7 +38,7 @@ void RenderArea::DrawMaze(QPainter& p) {
 
 }
 
-void RenderArea::DrawPoints(QPainter& p) {
+void MazeRenderArea::DrawPoints(QPainter& p) {
   if (!point1.isNull()) {
     p.setPen(Qt::red);
     p.setBrush(Qt::red);
@@ -52,7 +52,7 @@ void RenderArea::DrawPoints(QPainter& p) {
   }
 }
 
-void RenderArea::DrawSolution(QPainter& p) {
+void MazeRenderArea::DrawSolution(QPainter& p) {
   if (!solution.empty()) {
     QPainterPath painterpath;
 
@@ -68,7 +68,7 @@ void RenderArea::DrawSolution(QPainter& p) {
   }
 }
 
-void RenderArea::HandleLeftMouseEvent(int x, int y) {
+void MazeRenderArea::HandleLeftMouseEvent(int x, int y) {
   if (!point1.isNull() && !point2.isNull()) {
 
     static bool first_print = true;
@@ -87,7 +87,7 @@ void RenderArea::HandleLeftMouseEvent(int x, int y) {
     point1 = FindCenterPos(ToCeilCoord(x, y));
 }
 
-void RenderArea::HandleRightMouseEvent(int x, int y) {
+void MazeRenderArea::HandleRightMouseEvent(int x, int y) {
   if (IsPointNear(point1, x, y)) {
     point1.setX(0);
     point1.setY(0);
@@ -97,12 +97,12 @@ void RenderArea::HandleRightMouseEvent(int x, int y) {
   }
 }
 
-bool RenderArea::IsPointNear(const QPointF& point, int x, int y) const {
+bool MazeRenderArea::IsPointNear(const QPointF& point, int x, int y) const {
   return (x >= point.x() - 5 && x <= point.x() + 5) &&
          (y >= point.y() - 5 && y <= point.y() + 5);
 }
 
-QPointF RenderArea::FindCenterPos(const std::pair<int, int>& coord) {
+QPointF MazeRenderArea::FindCenterPos(const std::pair<int, int>& coord) {
   const std::size_t sz = ctr_.Size();
   const float ceil_sz = 500.0f / sz;
 
@@ -112,7 +112,7 @@ QPointF RenderArea::FindCenterPos(const std::pair<int, int>& coord) {
   return QPointF(x, y);
 }
 
-std::pair<int, int> RenderArea::ToCeilCoord(int x, int y) {
+std::pair<int, int> MazeRenderArea::ToCeilCoord(int x, int y) {
   float ceil_size = 504.0f / ctr_.Size();
 
   int row = y / ceil_size;

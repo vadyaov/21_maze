@@ -77,7 +77,7 @@ namespace maze {
 
   std::vector<Maze::Coord> Maze::FindShortestWay(const Coord& finish) {
     if (GetCeil(finish.first, finish.second).step == 0)
-      throw std::runtime_error("Solution doesnt't exist.");
+      throw std::runtime_error("Solution doesn't exist.");
 
     std::vector<Maze::Coord> shortest;
     Coord next{finish};

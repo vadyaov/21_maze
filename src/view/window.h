@@ -3,7 +3,7 @@
 
 #include <QWidget>
 
-#include "renderarea.h"
+#include "mazerenderarea.h"
 #include "button.h"
 #include "label.h"
 
@@ -17,7 +17,7 @@ class Window : public QWidget {
     QSize sizeHint() const override;
 
   private:
-    RenderArea* render_area_;
+    MazeRenderArea* render_area_;
 
     Button *CreateButton(const QString &text, const char *member);
     Label *CreateLabel(const QString &text);
