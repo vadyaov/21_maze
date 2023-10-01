@@ -1,5 +1,5 @@
-#ifndef WINDOW_H_
-#define WINDOW_H_
+#ifndef MAZEWINDOW_H_
+#define MAZEWINDOW_H_
 
 #include <QWidget>
 
@@ -22,4 +22,4 @@ class MazeWindow : public QWidget {
     Button *CreateButton(const QString &text, const char *member);
 };
 
-#endif // WINDOW_H_
+#endif // MAZEWINDOW_H_

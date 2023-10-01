@@ -19,15 +19,23 @@ qt_add_executable(maze
     model/maze/mazeloader.h model/maze/mazeloader.cc
     model/BaseLoader.h
 
+    model/cave/cave.h model/cave/cave.cc
+    model/cave/caveloader.h
+
     view/main.cc
     view/mainwindow.h
     view/base_render.h
     view/maze/mazerenderarea.cc view/maze/mazerenderarea_utils.cc view/maze/mazerenderarea.h
+    view/cave/caverenderarea.cc view/cave/caverenderarea.h
+
     view/maze/mazewindow.cc view/maze/mazewindow.h
+    view/cave/cavewindow.cc view/cave/cavewindow.h
+
     view/redef_widgets/button.cc view/redef_widgets/button.h
     view/redef_widgets/label.cc view/redef_widgets/label.h
 
     controller/controller.cc controller/controller.h
+    controller/CaveController.cc controller/CaveController.h
 )
 
 target_link_libraries(maze PUBLIC Qt::Widgets)

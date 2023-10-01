@@ -1,5 +1,5 @@
-#ifndef RENDERAREA_H_
-#define RENDERAREA_H_
+#ifndef MAZERENDERAREA_H_
+#define MAZERENDERAREA_H_
 
 #include "./../base_render.h"
 #include "../../controller/controller.h"
@@ -46,4 +46,4 @@ class MazeRenderArea : public BaseRenderArea {
     std::vector<QPointF> solution;
 };
 
-#endif // RENDERAREA_H_
+#endif // MAZERENDERAREA_H_
