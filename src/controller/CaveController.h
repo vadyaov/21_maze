@@ -1,7 +1,7 @@
 #ifndef CAVE_CONTROLLER_H_
 #define CAVE_CONTROLLER_H_
 
-#include "../model/cave/cave.h"
+#include "../model/cave/Cave.h"
 
 namespace cave {
 

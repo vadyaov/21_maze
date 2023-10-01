@@ -1,4 +1,4 @@
-#include "cavewindow.h"
+#include "CaveWindow.h"
 
 #include <QGridLayout>
 #include <QVBoxLayout>

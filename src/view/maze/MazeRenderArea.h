@@ -1,8 +1,8 @@
 #ifndef MAZERENDERAREA_H_
 #define MAZERENDERAREA_H_
 
-#include "./../base_render.h"
-#include "../../controller/controller.h"
+#include "./../BaseRender.h"
+#include "../../controller/MazeController.h"
 
 QT_BEGIN_NAMESPACE
 class QPainter;

@@ -1,4 +1,4 @@
-#include "mazerenderarea.h"
+#include "MazeRenderArea.h"
 
 #include <cmath>
 #include <iostream>

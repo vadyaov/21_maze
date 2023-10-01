@@ -1,7 +1,7 @@
 #ifndef CONTROLLER_H_
 #define CONTROLLER_H_
 
-#include "../model/maze/maze.h"
+#include "../model/maze/Maze.h"
 
 namespace maze {
   class Controller {

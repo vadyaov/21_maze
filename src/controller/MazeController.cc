@@ -1,4 +1,4 @@
-#include "controller.h"
+#include "MazeController.h"
 
 namespace maze {
 

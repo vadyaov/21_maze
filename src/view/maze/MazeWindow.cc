@@ -1,4 +1,4 @@
-#include "mazewindow.h"
+#include "MazeWindow.h"
 
 #include <QGridLayout>
 #include <QVBoxLayout>

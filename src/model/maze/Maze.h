@@ -2,15 +2,10 @@
 #define MAZE_H_
 
 #include <iostream>
-
 #include <cmath>
-#include <vector>
-#include <string>
-
 #include <utility>
 
-#include "mazeloader.h"
-#include "ceil.h"
+#include "MazeLoader.h"
 
 namespace maze {
 

@@ -1,7 +1,8 @@
 #ifndef CAVE_H_
 #define CAVE_H_
 
-#include "caveloader.h"
+#include "CaveLoader.h"
+
 #include <iostream>
 #include <cmath>
 

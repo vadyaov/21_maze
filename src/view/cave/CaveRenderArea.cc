@@ -1,4 +1,4 @@
-#include "caverenderarea.h"
+#include "CaveRenderArea.h"
 
 CaveRenderArea::CaveRenderArea(QWidget* parent) : BaseRenderArea(parent) {}
 

@@ -1,4 +1,4 @@
-#include "mazeloader.h"
+#include "MazeLoader.h"
 
 namespace maze {
 

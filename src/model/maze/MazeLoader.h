@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "../BaseLoader.h"
-#include "ceil.h"
+#include "Ceil.h"
 
 namespace maze {
   class MazeLoader : public BaseLoader {

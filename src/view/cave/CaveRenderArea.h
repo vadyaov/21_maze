@@ -1,7 +1,7 @@
 #ifndef CAVERENDERAREA_H_
 #define CAVERENDERAREA_H_
 
-#include "./../base_render.h"
+#include "./../BaseRender.h"
 #include "../../controller/CaveController.h"
 
 QT_BEGIN_NAMESPACE

@@ -15,26 +15,26 @@ add_compile_options(-fsanitize=address)
 add_link_options(-fsanitize=address)
 
 qt_add_executable(maze
-    model/maze/maze.h model/maze/ceil.h model/maze/maze.cc
-    model/maze/mazeloader.h model/maze/mazeloader.cc
+    model/maze/Maze.h model/maze/Ceil.h model/maze/Maze.cc
+    model/maze/MazeLoader.h model/maze/MazeLoader.cc
     model/BaseLoader.h
 
-    model/cave/cave.h model/cave/cave.cc
-    model/cave/caveloader.h
+    model/cave/Cave.h model/cave/Cave.cc
+    model/cave/CaveLoader.h
 
     view/main.cc
-    view/mainwindow.h
-    view/base_render.h
-    view/maze/mazerenderarea.cc view/maze/mazerenderarea_utils.cc view/maze/mazerenderarea.h
-    view/cave/caverenderarea.cc view/cave/caverenderarea.h
+    view/MainWindow.h
+    view/BaseRender.h
+    view/maze/MazeRenderArea.cc view/maze/MazeRenderArea_utils.cc view/maze/MazeRenderArea.h
+    view/cave/CaveRenderArea.cc view/cave/CaveRenderArea.h
 
-    view/maze/mazewindow.cc view/maze/mazewindow.h
-    view/cave/cavewindow.cc view/cave/cavewindow.h
+    view/maze/MazeWindow.cc view/maze/MazeWindow.h
+    view/cave/CaveWindow.cc view/cave/CaveWindow.h
 
     view/redef_widgets/button.cc view/redef_widgets/button.h
     view/redef_widgets/label.cc view/redef_widgets/label.h
 
-    controller/controller.cc controller/controller.h
+    controller/MazeController.cc controller/MazeController.h
     controller/CaveController.cc controller/CaveController.h
 )
 

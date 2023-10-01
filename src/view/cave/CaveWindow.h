@@ -1,25 +1,27 @@
-#ifndef MAZEWINDOW_H_
-#define MAZEWINDOW_H_
+#ifndef CAVEWINDOW_H_
+#define CAVEWINDOW_H_
 
 #include <QWidget>
 
-#include "mazerenderarea.h"
+#include "CaveRenderArea.h"
+
 #include "./../redef_widgets/button.h"
 #include "./../redef_widgets/label.h"
 
 
-class MazeWindow : public QWidget {
+class CaveWindow : public QWidget {
   Q_OBJECT
 
   public:
-    MazeWindow();
+    CaveWindow();
 
     QSize sizeHint() const override;
 
   private:
-    MazeRenderArea* render_area_;
+    CaveRenderArea* render_area_;
 
     Button *CreateButton(const QString &text, const char *member);
 };
 
-#endif // MAZEWINDOW_H_
+#endif // CAVEWINDOW_H_
+
