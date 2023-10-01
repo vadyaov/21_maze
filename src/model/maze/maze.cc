@@ -1,5 +1,4 @@
 #include "maze.h"
-#include "loader.h"
 
 #include <cstdlib>
 #include <ctime>
@@ -7,8 +6,8 @@
 namespace maze {
 
   void Maze::LoadMaze(const std::string& path) {
-    MazeLoader loader(path);
-    loader.ReadWalls(ceils_);
+    loader->OpenFile(path);
+    ceils_ = loader->ReadMaze();
   }
 
   void Maze::Generate(int size) {

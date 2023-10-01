@@ -11,6 +11,11 @@ class Label : public QLabel {
 
     QSize sizeHint() const override;
 
+    static Label* CreateLabel(const QString& text) {
+      Label* label = new Label(text);
+      return label;
+    }
+
   public slots:
     void HandleError(const QString& msg);
 

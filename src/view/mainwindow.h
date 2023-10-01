@@ -2,14 +2,14 @@
 #define MAINWINDOW_H_
 
 #include <QTabWidget>
-#include "window.h"
+#include "./maze/mazewindow.h"
 
 class MainWindow : public QTabWidget {
   Q_OBJECT
 
   public:
     MainWindow(QWidget* parent = nullptr) : QTabWidget(parent) {
-      Window *maze_window = new Window;
+      MazeWindow *maze_window = new MazeWindow;
       addTab(maze_window, QString("Maze"));
 
       setWindowTitle(tr("Maze & Cave"));

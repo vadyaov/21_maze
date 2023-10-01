@@ -8,8 +8,7 @@
 #include <QFileDialog>
 #include <QMouseEvent>
 
-MazeRenderArea::MazeRenderArea(QWidget* parent) : BaseRenderArea(parent) {
-}
+MazeRenderArea::MazeRenderArea(QWidget* parent) : BaseRenderArea(parent) {}
 
 void MazeRenderArea::paintEvent(QPaintEvent * /* event */) {
   QPainter painter(this);

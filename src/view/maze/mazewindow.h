@@ -4,15 +4,15 @@
 #include <QWidget>
 
 #include "mazerenderarea.h"
-#include "button.h"
-#include "label.h"
+#include "./../redef_widgets/button.h"
+#include "./../redef_widgets/label.h"
 
 
-class Window : public QWidget {
+class MazeWindow : public QWidget {
   Q_OBJECT
 
   public:
-    Window();
+    MazeWindow();
 
     QSize sizeHint() const override;
 
@@ -20,8 +20,6 @@ class Window : public QWidget {
     MazeRenderArea* render_area_;
 
     Button *CreateButton(const QString &text, const char *member);
-    Label *CreateLabel(const QString &text);
-
 };
 
 #endif // WINDOW_H_

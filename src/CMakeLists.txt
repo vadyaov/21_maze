@@ -15,16 +15,17 @@ add_compile_options(-fsanitize=address)
 add_link_options(-fsanitize=address)
 
 qt_add_executable(maze
-    model/maze.h model/maze.cc
-    model/loader.h model/loader.cc
+    model/maze/maze.h model/maze/ceil.h model/maze/maze.cc
+    model/maze/mazeloader.h model/maze/mazeloader.cc
+    model/BaseLoader.h
 
     view/main.cc
     view/mainwindow.h
     view/base_render.h
-    view/mazerenderarea.cc view/mazerenderarea_utils.cc view/mazerenderarea.h
-    view/window.cc view/window.h
-    view/button.cc view/button.h
-    view/label.cc view/label.h
+    view/maze/mazerenderarea.cc view/maze/mazerenderarea_utils.cc view/maze/mazerenderarea.h
+    view/maze/mazewindow.cc view/maze/mazewindow.h
+    view/redef_widgets/button.cc view/redef_widgets/button.h
+    view/redef_widgets/label.cc view/redef_widgets/label.h
 
     controller/controller.cc controller/controller.h
 )

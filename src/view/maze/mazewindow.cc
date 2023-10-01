@@ -1,14 +1,14 @@
-#include "window.h"
+#include "mazewindow.h"
 
 #include <QGridLayout>
 #include <QVBoxLayout>
 
-Window::Window() : render_area_{new MazeRenderArea(this)} {
+MazeWindow::MazeWindow() : render_area_{new MazeRenderArea(this)} {
   Button *browse_button = CreateButton(tr("Browse"), SLOT(BrowseClicked()));
   Button *generate_button = CreateButton(tr("Generate"), SLOT(GenerateClicked()));
   Button *findsol_button = CreateButton(tr("Find path"), SLOT(FindSolutionClicked()));
 
-  Label *err_label = CreateLabel(tr("HELLO!"));
+  Label *err_label = Label::CreateLabel(tr("HELLO!"));
   connect(render_area_, &MazeRenderArea::ErrorOccured, err_label, &Label::HandleError);
 
   QGridLayout *main_layout = new QGridLayout;
@@ -28,17 +28,12 @@ Window::Window() : render_area_{new MazeRenderArea(this)} {
   setFixedSize(750, 580);
 }
 
-QSize Window::sizeHint() const {
+QSize MazeWindow::sizeHint() const {
   return QSize(600, 500);
 }
 
-Button* Window::CreateButton(const QString &text, const char *member) {
+Button* MazeWindow::CreateButton(const QString &text, const char *member) {
   Button* button = new Button(text);
   connect(button, SIGNAL(clicked()), render_area_, member);
   return button;
-}
-
-Label* Window::CreateLabel(const QString &text) {
-  Label* label = new Label(text);
-  return label;
 }

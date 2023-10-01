@@ -9,28 +9,15 @@
 
 #include <utility>
 
+#include "mazeloader.h"
+#include "ceil.h"
+
 namespace maze {
-
-  class Ceil {
-    public:
-      int step = 0;
-      bool visited = false;
-
-      Ceil() : r_wall{true}, d_wall{true} {}
-
-      bool IsRight() const noexcept { return r_wall; }
-      bool IsDown() const noexcept { return d_wall; }
-
-      bool& GetRight() noexcept { return r_wall; }
-      bool& GetDown() noexcept { return d_wall; }
-
-    private:
-      bool r_wall;
-      bool d_wall;
-  };
 
   class Maze {
     public:
+      Maze() : loader{new MazeLoader} {}
+      ~Maze() { delete loader; }
 
       using Coord = std::pair<int, int>;
 
@@ -40,11 +27,8 @@ namespace maze {
 
       /* Getters */
       std::size_t Size() const noexcept;
-
-      /* Accessor */
       Ceil& GetCeil(int row, int col);
       const Ceil& GetCeil(int row, int col) const;
-
       const std::vector<Ceil>& GetCeils() const & noexcept;
 
       /* debug */
@@ -83,6 +67,7 @@ namespace maze {
       }
 
     private:
+      MazeLoader* loader;
       std::vector<Ceil> ceils_;
 
       void MakeWave(int row, int column, std::size_t steps);

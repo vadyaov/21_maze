@@ -1,8 +1,8 @@
 #ifndef RENDERAREA_H_
 #define RENDERAREA_H_
 
-#include "base_render.h"
-#include "../controller/controller.h"
+#include "./../base_render.h"
+#include "../../controller/controller.h"
 
 QT_BEGIN_NAMESPACE
 class QPainter;
