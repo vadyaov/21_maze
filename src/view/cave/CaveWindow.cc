@@ -2,14 +2,32 @@
 
 #include <QGridLayout>
 #include <QVBoxLayout>
+#include <QSpinBox>
 
 CaveWindow::CaveWindow() : render_area_{new CaveRenderArea(this)} {
   Button *browse_button = CreateButton(tr("Browse"), SLOT(BrowseClicked()));
-  /* Button *generate_button = CreateButton(tr("Generate"), SLOT(GenerateClicked())); */
+  Button *generate_button = CreateButton(tr("Generate"), SLOT(GenerateClicked()));
   /* Button *findsol_button = CreateButton(tr("Find path"), SLOT(FindSolutionClicked())); */
 
   Label *err_label = Label::CreateLabel(tr("HELLO!"));
   connect(render_area_, &CaveRenderArea::ErrorOccured, err_label, &Label::HandleError);
+
+  QSpinBox *life_box = new QSpinBox;
+  QSpinBox *death_box = new QSpinBox;
+  QSpinBox *init_chance_box = new QSpinBox;
+
+  life_box->setRange(-1, 7);
+  death_box->setRange(-1, 7);
+  init_chance_box->setRange(-1, 100);
+
+  life_box->setSpecialValueText(tr("Life"));
+  death_box->setSpecialValueText(tr("Death"));
+  init_chance_box->setSpecialValueText(tr("Initial chance"));
+
+  life_box->setValue(-1);
+  death_box->setValue(-1);
+  init_chance_box->setValue(-1);
+  init_chance_box->setSuffix(" %");
 
   QGridLayout *main_layout = new QGridLayout;
   QVBoxLayout *buttons_layout = new QVBoxLayout;
@@ -18,14 +36,18 @@ CaveWindow::CaveWindow() : render_area_{new CaveRenderArea(this)} {
   main_layout->addWidget(err_label, 2, 0, 1, 1, Qt::AlignCenter);
 
   buttons_layout->addWidget(browse_button);
-  /* buttons_layout->addWidget(generate_button); */
+  buttons_layout->addWidget(generate_button);
   /* buttons_layout->addWidget(findsol_button); */
+
+  buttons_layout->addWidget(life_box);
+  buttons_layout->addWidget(death_box);
+  buttons_layout->addWidget(init_chance_box);
 
   main_layout->addLayout(buttons_layout, 0, 2);
 
   setLayout(main_layout);
 
-  setFixedSize(750, 580);
+  /* setFixedSize(750, 580); */
 }
 
 QSize CaveWindow::sizeHint() const {

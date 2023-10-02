@@ -10,11 +10,13 @@ namespace cave {
       void ReadCave(const std::string& path);
       /* void GenCave(std::size_t size); */
 
-      /* std::size_t Size() const noexcept; */
+      std::size_t Size() const noexcept;
       /* const std::vector<bool>& GetCeils() const & noexcept; */
 
-      /* bool& At(int i, int j); */
+      bool At(int i, int j) const;
       /* const bool& At(int i, int j) const; */
+
+      void MakeNextGen(int life, int death);
 
     private:
       Cave c;

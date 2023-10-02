@@ -25,7 +25,7 @@ MazeWindow::MazeWindow() : render_area_{new MazeRenderArea(this)} {
 
   setLayout(main_layout);
 
-  setFixedSize(750, 580);
+  /* setFixedSize(750, 580); */
 }
 
 QSize MazeWindow::sizeHint() const {

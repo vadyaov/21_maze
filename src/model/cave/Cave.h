@@ -16,6 +16,14 @@ namespace cave {
       void LoadCave(const std::string& path);
       /* void Generate(int size); */
 
+      std::size_t Size() const noexcept {
+        return std::sqrt(ceils_.size());
+      }
+
+      int At(int i, int j) const {
+        return ceils_.at(i * Size() + j);
+      }
+
       void print_cave() {
         std::cout << "Size = " << ceils_.size() << std::endl;
 
@@ -27,6 +35,11 @@ namespace cave {
           }
         }
       }
+
+      void NextGeneration(int life_lim, int death_lim);
+
+    private:
+      int CountAliveAround(int i, int j);
 
     private:
       CaveLoader* loader;
