@@ -16,10 +16,10 @@
 0 1 1 0 0 1 1 0 0 0 
 ```
 
-![cave_example1](../misc/images/cave_example1.png)
+![cave_example1](../misc/cave_example1.png)
 
 The result with a "birth" limit of 4 and a "death" limit of 3: \
-![cave_example_solution1](../misc/images/cave_example_solution1.png)
+![cave_example_solution1](../misc/cave_example_solution1.png)
 
 ## Example 2
 
@@ -47,10 +47,10 @@ The result with a "birth" limit of 4 and a "death" limit of 3: \
 0 1 0 0 1 0 0 1 1 0 1 0 1 0 1 1 0 1 0 1 
 ```
 
-![cave_example2](../misc/images/cave_example2.png)
+![cave_example2](../misc/cave_example2.png)
 
 The result with a "birth" limit of 6 and a "death" limit of 1: \
-![cave_example_solution2](../misc/images/cave_example_solution2.png)
+![cave_example_solution2](../misc/cave_example_solution2.png)
 
 ## Example 3
 
@@ -108,7 +108,7 @@ The result with a "birth" limit of 6 and a "death" limit of 1: \
 1 0 1 0 0 0 0 0 0 1 1 1 0 1 0 0 1 1 1 1 0 0 0 0 1 0 0 1 1 0 0 1 0 0 1 0 0 1 1 1 1 1 0 0 1 0 1 0 0 0 
 ```
 
-![cave_example3](../misc/images/cave_example3.png)
+![cave_example3](../misc/cave_example3.png)
 
 The result with a "birth" limit of 2 and a "death" limit of 5: \
-![cave_example_solution3](../misc/images/cave_example_solution3.png)
+![cave_example_solution3](../misc/cave_example_solution3.png)
