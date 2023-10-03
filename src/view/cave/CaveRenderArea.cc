@@ -5,6 +5,8 @@
 
 #include <QSpinBox>
 
+#include "CaveWindow.h"
+
 CaveRenderArea::CaveRenderArea(QWidget* parent) : BaseRenderArea(parent) {}
 
 void CaveRenderArea::paintEvent(QPaintEvent * /* event */) {
@@ -40,10 +42,8 @@ void CaveRenderArea::BrowseClicked() {
 }
 
 void CaveRenderArea::GenerateClicked() {
-  /* QSpinBox* lifebox = parentWidget()->findChild<QSpinBox*>("life_box"); */
-  /* QSpinBox* deathbox = parentWidget()->findChild<QSpinBox*>("death_box"); */
-
-  /* ctr_.MakeNextGen(lifebox->value(), deathbox->value()); */
-  ctr_.MakeNextGen(4, 3);
+  ctr_.InitializeCave(20, 0.5);
+  /* CaveWindow* parent = qobject_cast<CaveWindow*>(parentWidget()); */
+  /* ctr_.MakeNextGen(parent->GetLifeLimit(), parent->GetDeathLimit()); */
   update();
 }

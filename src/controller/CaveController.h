@@ -17,6 +17,7 @@ namespace cave {
       /* const bool& At(int i, int j) const; */
 
       void MakeNextGen(int life, int death);
+      void InitializeCave(int size, double prob);
 
     private:
       Cave c;

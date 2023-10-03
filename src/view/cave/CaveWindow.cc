@@ -12,9 +12,9 @@ CaveWindow::CaveWindow() : render_area_{new CaveRenderArea(this)} {
   Label *err_label = Label::CreateLabel(tr("HELLO!"));
   connect(render_area_, &CaveRenderArea::ErrorOccured, err_label, &Label::HandleError);
 
-  QSpinBox *life_box = new QSpinBox;
-  QSpinBox *death_box = new QSpinBox;
-  QSpinBox *init_chance_box = new QSpinBox;
+  life_box = new QSpinBox;
+  death_box = new QSpinBox;
+  init_chance_box = new QSpinBox;
 
   life_box->setRange(-1, 7);
   death_box->setRange(-1, 7);
@@ -58,4 +58,14 @@ Button* CaveWindow::CreateButton(const QString &text, const char *member) {
   Button* button = new Button(text);
   connect(button, SIGNAL(clicked()), render_area_, member);
   return button;
+}
+
+int CaveWindow::GetLifeLimit() const {
+  if (life_box->value() == -1) throw std::range_error("No life limit");
+  return life_box->value();
+}
+
+int CaveWindow::GetDeathLimit() const {
+  if (death_box->value() == -1) throw std::range_error("No death limit");
+  return death_box->value();
 }

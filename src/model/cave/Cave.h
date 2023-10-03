@@ -37,9 +37,10 @@ namespace cave {
       }
 
       void NextGeneration(int life_lim, int death_lim);
+      void Init(int, double);
 
     private:
-      int CountAliveAround(int i, int j);
+      int CountAliveAround(int i, int j) const;
 
     private:
       CaveLoader* loader;

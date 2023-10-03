@@ -18,4 +18,8 @@ namespace cave {
     c.NextGeneration(life, death);
   }
 
+  void Controller::InitializeCave(int size, double prob) {
+    c.Init(size, prob);
+  }
+
 } // namespcae cave
