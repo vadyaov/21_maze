@@ -56,11 +56,11 @@ void CaveRenderArea::SimulationClicked() {
   CaveWindow* parent = qobject_cast<CaveWindow*>(parentWidget());
   try {
     if (parent->IsAuto()) {
-      /* int steps = parent->GetSteps(); */
       int delta_t = parent->GetDelta();
       QTimer *timer = new QTimer(this);
       connect(timer, &QTimer::timeout, this, &CaveRenderArea::MakeNextGen);
-      timer->start(delta_t);
+      timer->setInterval(delta_t);
+      timer->start();
     } else {
       MakeNextGen();
     }
