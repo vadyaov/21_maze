@@ -22,4 +22,9 @@ namespace cave {
     c.Init(size, prob);
   }
 
+  void Controller::Save() const {
+    c.SaveToFile();
+  }
+
+
 } // namespcae cave

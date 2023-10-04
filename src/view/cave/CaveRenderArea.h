@@ -18,6 +18,11 @@ class CaveRenderArea : public BaseRenderArea {
   public slots:
     void BrowseClicked() override;
     void GenerateClicked() override;
+    void SimulationClicked();
+    void SaveClicked();
+
+  private slots:
+    void MakeNextGen();
 
   signals:
     void ErrorOccured(const QString& msg);

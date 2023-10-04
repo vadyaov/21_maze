@@ -10,6 +10,7 @@
 
 QT_BEGIN_NAMESPACE
 class QSpinBox;
+class QRadioButton;
 QT_END_NAMESPACE
 
 class CaveWindow : public QWidget {
@@ -22,7 +23,11 @@ class CaveWindow : public QWidget {
 
     int GetLifeLimit() const;
     int GetDeathLimit() const;
-    /* int GetInitChance() const; */
+    double GetInitChance() const;
+    int GetSize() const;
+    int GetDelta() const;
+    int GetSteps() const;
+    bool IsAuto() const;
 
   private:
     CaveRenderArea* render_area_;
@@ -32,6 +37,11 @@ class CaveWindow : public QWidget {
     QSpinBox *life_box;
     QSpinBox *death_box;
     QSpinBox *init_chance_box;
+    QSpinBox *size_box;
+
+    QRadioButton *auto_, *manually_;
+    QSpinBox *delta_box;
+    QSpinBox *steps_box;
 };
 
 #endif // CAVEWINDOW_H_

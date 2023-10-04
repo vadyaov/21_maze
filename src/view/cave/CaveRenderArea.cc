@@ -4,6 +4,7 @@
 #include <QFileDialog>
 
 #include <QSpinBox>
+#include <QTimer>
 
 #include "CaveWindow.h"
 
@@ -42,8 +43,38 @@ void CaveRenderArea::BrowseClicked() {
 }
 
 void CaveRenderArea::GenerateClicked() {
-  ctr_.InitializeCave(20, 0.5);
-  /* CaveWindow* parent = qobject_cast<CaveWindow*>(parentWidget()); */
-  /* ctr_.MakeNextGen(parent->GetLifeLimit(), parent->GetDeathLimit()); */
+  CaveWindow* parent = qobject_cast<CaveWindow*>(parentWidget());
+  try {
+    ctr_.InitializeCave(parent->GetSize(), parent->GetInitChance());
+    update();
+  } catch (const std::exception& e) {
+    emit ErrorOccured(e.what());
+  }
+}
+
+void CaveRenderArea::SimulationClicked() {
+  CaveWindow* parent = qobject_cast<CaveWindow*>(parentWidget());
+  try {
+    if (parent->IsAuto()) {
+      /* int steps = parent->GetSteps(); */
+      int delta_t = parent->GetDelta();
+      QTimer *timer = new QTimer(this);
+      connect(timer, &QTimer::timeout, this, &CaveRenderArea::MakeNextGen);
+      timer->start(delta_t);
+    } else {
+      MakeNextGen();
+    }
+  } catch (const std::exception& e) {
+    emit ErrorOccured(e.what());
+  }
+}
+
+void CaveRenderArea::SaveClicked() {
+  ctr_.Save();
+}
+
+void CaveRenderArea::MakeNextGen() {
+  static CaveWindow* parent = qobject_cast<CaveWindow*>(parentWidget());
+  ctr_.MakeNextGen(parent->GetLifeLimit(), parent->GetDeathLimit());
   update();
 }

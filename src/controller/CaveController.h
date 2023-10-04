@@ -18,6 +18,7 @@ namespace cave {
 
       void MakeNextGen(int life, int death);
       void InitializeCave(int size, double prob);
+      void Save() const;
 
     private:
       Cave c;

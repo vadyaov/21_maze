@@ -30,27 +30,31 @@ namespace cave {
 
   void Cave::NextGeneration(int life_lim, int death_lim) {
     /* std::cout << "life = " << life_lim << " death = " << death_lim << std::endl; */
-    std::vector<bool> next = ceils_;
+    std::vector<bool> next(ceils_.size());
 
-    /* std::cout << "BEFORE:\n"; */
-    /* print_cave(); */
-
-    for (std::size_t i = 0; i < Size(); ++i) {
+    for (std::size_t i = 0; i < Size(); ++i)
       for (std::size_t j = 0; j < Size(); ++j) {
         int alive_num = CountAliveAround(i, j);
-        std::cout << alive_num << " alive ceils around [" << i << ", " << j << "]" << std::endl;
-        if (At(i, j) == false && alive_num <= death_lim) { // тут не должно быть меньше либо равно
-          next.at(i * Size() + j) = true;
-        } else if (At(i, j) == true && alive_num > life_lim) {
-          next.at(i * Size() + j) = false;
+        /* std::cout << alive_num << " alive ceils around [" << i << ", " << j << "]" << std::endl; */
+        if (At(i, j) == false) {
+
+          if (alive_num < death_lim)
+            next[i * Size() + j] = true;
+          else
+            next[i * Size() + j] = false;
+
+        } else if (At(i, j) == true) {
+
+          if (alive_num > life_lim)
+            next[i * Size() + j] = false;
+          else
+            next[i * Size() + j] = true;
+
         }
       }
-    }
 
     ceils_ = next;
 
-    /* std::cout << "AFTER:\n"; */
-    /* print_cave(); */
   }
 
   int Cave::CountAliveAround(int i, int j) const {
@@ -84,6 +88,16 @@ namespace cave {
       ++num;
 
     return num;
+  }
+
+  
+  void Cave::SaveToFile() const {
+    if (ceils_.empty()) {
+      std::cout << "empty canvas\n";
+      return;
+    }
+
+    std::cout << "saving to file...\n";
   }
 
 } // namespace cave

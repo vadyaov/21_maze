@@ -14,7 +14,6 @@ namespace cave {
       ~Cave() { delete loader; }
 
       void LoadCave(const std::string& path);
-      /* void Generate(int size); */
 
       std::size_t Size() const noexcept {
         return std::sqrt(ceils_.size());
@@ -36,8 +35,9 @@ namespace cave {
         }
       }
 
-      void NextGeneration(int life_lim, int death_lim);
       void Init(int, double);
+      void NextGeneration(int life_lim, int death_lim);
+      void SaveToFile() const;
 
     private:
       int CountAliveAround(int i, int j) const;
