@@ -32,7 +32,7 @@ qt_add_executable(maze
     view/cave/CaveWindow.cc view/cave/CaveWindow.h
 
     view/redef_widgets/button.cc view/redef_widgets/button.h
-    view/redef_widgets/label.cc view/redef_widgets/label.h
+    # view/redef_widgets/label.cc view/redef_widgets/label.h
 
     controller/MazeController.cc controller/MazeController.h
     controller/CaveController.cc controller/CaveController.h

@@ -5,7 +5,8 @@
 
 #include "MazeRenderArea.h"
 #include "./../redef_widgets/button.h"
-#include "./../redef_widgets/label.h"
+
+#include <QSpinBox>
 
 class MazeWindow : public QWidget {
   Q_OBJECT
@@ -19,6 +20,8 @@ class MazeWindow : public QWidget {
     MazeRenderArea* render_area_;
 
     Button *CreateButton(const QString &text, const char *member);
+
+    QSpinBox* size_box;
 };
 
 #endif // MAZEWINDOW_H_

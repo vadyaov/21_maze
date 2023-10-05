@@ -35,10 +35,11 @@ void CaveRenderArea::BrowseClicked() {
   QFileInfo fileinfo(filename);
   try {
     ctr_.ReadCave(filename.toStdString());
-    emit ErrorOccured(fileinfo.fileName() + " loaded successfully");
+    /* emit ErrorOccured(fileinfo.fileName() + " loaded successfully"); */
     update();
   } catch (const std::invalid_argument& e) {
-    emit ErrorOccured(e.what());
+    /* emit ErrorOccured(e.what()); */
+    std::cout << "Need to handle ERROR\n";
   }
 }
 
@@ -48,7 +49,8 @@ void CaveRenderArea::GenerateClicked() {
     ctr_.InitializeCave(parent->GetSize(), parent->GetInitChance());
     update();
   } catch (const std::exception& e) {
-    emit ErrorOccured(e.what());
+    /* emit ErrorOccured(e.what()); */
+    std::cout << "Need to handle ERROR\n";
   }
 }
 
@@ -57,24 +59,33 @@ void CaveRenderArea::SimulationClicked() {
   try {
     if (parent->IsAuto()) {
       int delta_t = parent->GetDelta();
+      int steps = parent->GetSteps();
+      int step_count = 0;
       QTimer *timer = new QTimer(this);
-      connect(timer, &QTimer::timeout, this, &CaveRenderArea::MakeNextGen);
+  
+     // захватываем переменные по значению и можем менять их внутри лямбды
+      connect(timer, &QTimer::timeout, [=]() mutable {
+          if (step_count < steps) {
+            ctr_.MakeNextGen(parent->GetLifeLimit(), parent->GetDeathLimit());
+            update();
+            step_count++;
+          } else {
+            timer->stop();
+          }
+          });
       timer->setInterval(delta_t);
       timer->start();
     } else {
-      MakeNextGen();
+      ctr_.MakeNextGen(parent->GetLifeLimit(), parent->GetDeathLimit());
+      update();
     }
   } catch (const std::exception& e) {
-    emit ErrorOccured(e.what());
+    /* emit ErrorOccured(e.what()); */
+    std::cout << "Need to handle ERROR\n";
   }
 }
 
-void CaveRenderArea::SaveClicked() {
-  ctr_.Save();
-}
+/* void CaveRenderArea::SaveClicked() { */
+/*   ctr_.Save(); */
+/* } */
 
-void CaveRenderArea::MakeNextGen() {
-  static CaveWindow* parent = qobject_cast<CaveWindow*>(parentWidget());
-  ctr_.MakeNextGen(parent->GetLifeLimit(), parent->GetDeathLimit());
-  update();
-}

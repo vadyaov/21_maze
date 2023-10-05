@@ -37,7 +37,7 @@ namespace cave {
 
       void Init(int, double);
       void NextGeneration(int life_lim, int death_lim);
-      void SaveToFile() const;
+      /* void SaveToFile() const; */
 
     private:
       int CountAliveAround(int i, int j) const;

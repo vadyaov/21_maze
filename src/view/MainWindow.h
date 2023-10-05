@@ -20,7 +20,7 @@ class MainWindow : public QTabWidget {
     }
 
     QSize sizeHint() const override {
-      return QSize(750, 600);
+      return QSize(1000, 550);
     }
 
 };

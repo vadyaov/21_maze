@@ -27,10 +27,10 @@ void MazeRenderArea::BrowseClicked() {
     ctr_.ReadMaze(filename.toStdString());
     point1 = point2 = {0, 0};
     solution.clear();
-    emit ErrorOccured(fileinfo.fileName() + " loaded successfully");
+    /* emit ErrorOccured(fileinfo.fileName() + " loaded successfully"); */
     update();
   } catch (const std::invalid_argument& e) {
-    emit ErrorOccured(e.what());
+    /* emit ErrorOccured(e.what()); */
   }
 }
 
@@ -63,11 +63,15 @@ void MazeRenderArea::FindSolutionClicked() {
     for (const auto& coordinate : solution_ceils)
       solution.push_back(FindCenterPos(coordinate));
 
-    emit ErrorOccured("Solution found");
+    /* emit ErrorOccured("Solution found"); */
     update();
   } catch (const std::exception& e) {
-    emit ErrorOccured(e.what());
+    /* emit ErrorOccured(e.what()); */
   }
+}
+
+void MazeRenderArea::SaveClicked() {
+  ctr_.Save();
 }
 
 void MazeRenderArea::mousePressEvent(QMouseEvent *event) {

@@ -7,13 +7,10 @@
 
 CaveWindow::CaveWindow() : render_area_{new CaveRenderArea(this)} {
   Button *browse_button = CreateButton(tr("Open"), SLOT(BrowseClicked()));
-  Button *save_button = CreateButton(tr("Save"), SLOT(SaveClicked()));
+  /* Button *save_button = CreateButton(tr("Save"), SLOT(SaveClicked())); */
   Button *generate_button = CreateButton(tr("Generate"), SLOT(GenerateClicked()));
   Button *simulation_button = CreateButton(tr("Simulate"), SLOT(SimulationClicked()));
   simulation_button->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-
-  Label *err_label = Label::CreateLabel(tr("HELLO!"));
-  connect(render_area_, &CaveRenderArea::ErrorOccured, err_label, &Label::HandleError);
 
   life_box = new QSpinBox;
   death_box = new QSpinBox;
@@ -42,31 +39,32 @@ CaveWindow::CaveWindow() : render_area_{new CaveRenderArea(this)} {
 
   life_box->setValue(-1);
   death_box->setValue(-1);
-  init_chance_box->setValue(-1);
-  size_box->setValue(-1);
-  delta_box->setValue(100);
-  steps_box->setValue(10);
+  init_chance_box->setValue(48);
+  size_box->setValue(50);
+  delta_box->setValue(400);
+  steps_box->setValue(5);
   init_chance_box->setSuffix(" %");
   delta_box->setSuffix(" ms");
+  steps_box->setSuffix(" step(s)");
 
   QGridLayout *main_layout = new QGridLayout;
   QGridLayout *settings_layout = new QGridLayout;
 
   settings_layout->addWidget(browse_button, 0, 0, 1, 3);
-  settings_layout->addWidget(save_button, 1, 0, 1, 3);
-  settings_layout->addWidget(generate_button, 2, 0, 1, 1);
-  settings_layout->addWidget(simulation_button, 3, 0, 2, 1);
-  settings_layout->addWidget(life_box, 3, 1, 1, 1);
-  settings_layout->addWidget(death_box, 3, 2, 1, 1);
-  settings_layout->addWidget(init_chance_box, 2, 2, 1, 1);
-  settings_layout->addWidget(size_box, 2, 1, 1, 1);
-  settings_layout->addWidget(auto_, 4, 1, 1, 1);
-  settings_layout->addWidget(manually_, 4, 2, 1, 1);
-  settings_layout->addWidget(steps_box, 5, 1, 1, 1);
-  settings_layout->addWidget(delta_box, 5, 2, 1, 1);
+  /* settings_layout->addWidget(save_button, 1, 0, 1, 3); */
+  settings_layout->addWidget(generate_button, 1, 0, 1, 1);
+  settings_layout->addWidget(simulation_button, 2, 0, 2, 1);
+  settings_layout->addWidget(life_box, 2, 1, 1, 1);
+  settings_layout->addWidget(death_box, 2, 2, 1, 1);
+  settings_layout->addWidget(init_chance_box, 1, 2, 1, 1);
+  settings_layout->addWidget(size_box, 1, 1, 1, 1);
+  settings_layout->addWidget(auto_, 3, 1, 1, 1);
+  settings_layout->addWidget(manually_, 3, 2, 1, 1);
+  settings_layout->addWidget(steps_box, 4, 1, 1, 1);
+  settings_layout->addWidget(delta_box, 4, 2, 1, 1);
 
   main_layout->addWidget(render_area_, 0, 0, 2, 1);
-  main_layout->addWidget(err_label, 2, 0, 1, 1, Qt::AlignCenter);
+  /* main_layout->addWidget(err_label, 2, 0, 1, 1, Qt::AlignCenter); */
 
   main_layout->addLayout(settings_layout, 0, 1, 2, 3, Qt::AlignTop);
 

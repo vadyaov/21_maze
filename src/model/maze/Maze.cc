@@ -143,4 +143,14 @@ namespace maze {
     return ceils_;
   }
 
+  void Maze::SaveToFile() const {
+    if (ceils_.empty()) {
+      std::cout << "empty canvas\n";
+      return;
+    }
+
+    std::cout << "saving to file...\n";
+  }
+
+
 } // namespace maze

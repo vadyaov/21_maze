@@ -22,4 +22,8 @@ namespace maze {
     return m.GetCeils();
   }
 
+  void Controller::Save() const {
+    m.SaveToFile();
+  }
+
 } // namespace maze

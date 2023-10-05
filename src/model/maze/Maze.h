@@ -61,6 +61,8 @@ namespace maze {
         }
       }
 
+      void SaveToFile() const;
+
     private:
       MazeLoader* loader;
       std::vector<Ceil> ceils_;

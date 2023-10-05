@@ -19,6 +19,7 @@ class MazeRenderArea : public BaseRenderArea {
     void BrowseClicked() override;
     void GenerateClicked() override;
     void FindSolutionClicked();
+    void SaveClicked();
 
   signals:
     void ErrorOccured(const QString& msg);

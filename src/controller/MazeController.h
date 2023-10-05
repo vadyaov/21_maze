@@ -8,6 +8,7 @@ namespace maze {
     public:
       void ReadMaze(const std::string& path);
       void GenMaze(std::size_t size);
+      void Save() const;
       std::vector<Maze::Coord> FindSolution(Maze::Coord first, Maze::Coord second);
 
       void print() {m.print();}

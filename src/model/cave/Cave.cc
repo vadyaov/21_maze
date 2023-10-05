@@ -90,14 +90,4 @@ namespace cave {
     return num;
   }
 
-  
-  void Cave::SaveToFile() const {
-    if (ceils_.empty()) {
-      std::cout << "empty canvas\n";
-      return;
-    }
-
-    std::cout << "saving to file...\n";
-  }
-
 } // namespace cave
