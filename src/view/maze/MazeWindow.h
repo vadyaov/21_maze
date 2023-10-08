@@ -15,6 +15,7 @@ class MazeWindow : public QWidget {
     MazeWindow();
 
     QSize sizeHint() const override;
+    int GetSize() const;
 
   private:
     MazeRenderArea* render_area_;

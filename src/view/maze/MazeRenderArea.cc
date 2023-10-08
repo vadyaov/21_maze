@@ -1,5 +1,7 @@
 #include "MazeRenderArea.h"
 
+#include "MazeWindow.h"
+
 #include <cmath>
 #include <iostream>
 
@@ -7,6 +9,8 @@
 #include <QPainterPath>
 #include <QFileDialog>
 #include <QMouseEvent>
+
+#include <QObject>
 
 MazeRenderArea::MazeRenderArea(QWidget* parent) : BaseRenderArea(parent) {}
 
@@ -35,12 +39,14 @@ void MazeRenderArea::BrowseClicked() {
 }
 
 void MazeRenderArea::GenerateClicked() {
-  int size = 10;
-  ctr_.GenMaze(size);
-  point1 = point2 = {0, 0};
-  solution.clear();
-  emit ErrorOccured("Generated " + QString::number(size) + 'x' + QString::number(size));
-  update();
+  MazeWindow *sender = qobject_cast<MazeWindow*>(parentWidget());
+  if (sender) {
+    ctr_.GenMaze(sender->GetSize());
+    point1 = point2 = {0, 0};
+    solution.clear();
+    /* emit ErrorOccured("Generated " + QString::number(size) + 'x' + QString::number(size)); */
+    update();
+  }
 }
 
 void MazeRenderArea::FindSolutionClicked() {

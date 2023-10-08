@@ -143,14 +143,47 @@ namespace maze {
     return ceils_;
   }
 
-  void Maze::SaveToFile() const {
-    if (ceils_.empty()) {
-      std::cout << "empty canvas\n";
-      return;
-    }
+  std::string GenerateUniqueName(std::size_t size) {
+    std::string sz = std::to_string(size);
+    std::string basename{"./examples/maze_" + sz + "x" + sz + "_"};
 
-    std::cout << "saving to file...\n";
+    std::time_t now = std::time(nullptr);
+    std::string now_str = std::ctime(&now);
+
+    now_str.pop_back();
+    
+    return basename + now_str + ".txt";
   }
 
+  void Maze::SaveToFile() const {
+    if (ceils_.empty()) return;
+
+    std::string filename = GenerateUniqueName(Size());
+
+    std::fstream filestream;
+    filestream.open(filename, std::ios_base::out);
+
+    filestream << Size() << ' ' << Size() << std::endl;
+    for (std::size_t i = 0, j = 1; i < ceils_.size(); ++i, ++j) {
+      filestream << ceils_[i].IsRight() << ' ';
+      if (j == Size()) {
+        filestream << std::endl;
+        j = 0;
+      }
+    }
+
+    filestream << std::endl;
+
+    for (std::size_t i = 0, j = 1; i < ceils_.size(); ++i, ++j) {
+      filestream << ceils_[i].IsDown() << ' ';
+      if (j == Size()) {
+        filestream << std::endl;
+        j = 0;
+      }
+    }
+
+    filestream.close();
+
+  }
 
 } // namespace maze

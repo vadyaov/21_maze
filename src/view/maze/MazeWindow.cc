@@ -10,7 +10,7 @@ MazeWindow::MazeWindow() : render_area_{new MazeRenderArea(this)} {
   Button *save_button = CreateButton(tr("Save"), SLOT(SaveClicked()));
 
   size_box = new QSpinBox;
-  size_box->setRange(1, 50);
+  size_box->setRange(2, 50);
 
   /* Label *err_label = Label::CreateLabel(tr("HELLO!")); */
   /* connect(render_area_, &MazeRenderArea::ErrorOccured, err_label, &Label::HandleError); */
@@ -43,3 +43,8 @@ Button* MazeWindow::CreateButton(const QString &text, const char *member) {
   connect(button, SIGNAL(clicked()), render_area_, member);
   return button;
 }
+
+int MazeWindow::GetSize() const {
+  return size_box->value();
+}
+
