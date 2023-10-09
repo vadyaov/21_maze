@@ -19,7 +19,6 @@ namespace cave {
 
     for (int i = 0; i < size * size; ++i) {
       double random_value = normal_distrib(engine);
-      std::cout << "Generated " << random_value << std::endl;
       if (random_value <= probability)
         ceils_[i] = false;
       else
@@ -29,13 +28,11 @@ namespace cave {
   }
 
   void Cave::NextGeneration(int life_lim, int death_lim) {
-    /* std::cout << "life = " << life_lim << " death = " << death_lim << std::endl; */
     std::vector<bool> next(ceils_.size());
 
     for (std::size_t i = 0; i < Size(); ++i)
       for (std::size_t j = 0; j < Size(); ++j) {
         int alive_num = CountAliveAround(i, j);
-        /* std::cout << alive_num << " alive ceils around [" << i << ", " << j << "]" << std::endl; */
         if (At(i, j) == false) {
 
           if (alive_num < death_lim)

@@ -4,6 +4,8 @@
 #include "./../BaseRender.h"
 #include "../../controller/CaveController.h"
 
+#include <QTimer>
+
 QT_BEGIN_NAMESPACE
 class QPainter;
 /* class QMouseEvent; */
@@ -19,15 +21,14 @@ class CaveRenderArea : public BaseRenderArea {
     void BrowseClicked() override;
     void GenerateClicked() override;
     void SimulationClicked();
-
-  signals:
-    void ErrorOccured(const QString& msg);
+    void TimerRoutine();
 
   protected:
     void paintEvent(QPaintEvent *event) override;
 
   private:
     cave::Controller ctr_;
+    QTimer *timer;
 };
 
 #endif // CAVERENDERAREA_H_

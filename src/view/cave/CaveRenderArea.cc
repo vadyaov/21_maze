@@ -4,11 +4,12 @@
 #include <QFileDialog>
 
 #include <QSpinBox>
-#include <QTimer>
 
 #include "CaveWindow.h"
 
-CaveRenderArea::CaveRenderArea(QWidget* parent) : BaseRenderArea(parent) {}
+CaveRenderArea::CaveRenderArea(QWidget* parent) : BaseRenderArea(parent), timer{new QTimer(this)} {
+  connect(timer, &QTimer::timeout, this, &CaveRenderArea::TimerRoutine);
+}
 
 void CaveRenderArea::paintEvent(QPaintEvent * /* event */) {
   QPainter painter(this);
@@ -39,41 +40,50 @@ void CaveRenderArea::BrowseClicked() {
     update();
   } catch (const std::invalid_argument& e) {
     /* emit ErrorOccured(e.what()); */
-    std::cout << "Need to handle ERROR\n";
+    /* std::cout << "Need to handle ERROR\n"; */
   }
 }
 
 void CaveRenderArea::GenerateClicked() {
+  if (timer->isActive()) timer->stop();
+
   CaveWindow* parent = qobject_cast<CaveWindow*>(parentWidget());
   try {
     ctr_.InitializeCave(parent->GetSize(), parent->GetInitChance());
     update();
   } catch (const std::exception& e) {
     /* emit ErrorOccured(e.what()); */
-    std::cout << "Need to handle ERROR\n";
+    /* std::cout << "Need to handle ERROR\n"; */
   }
+}
+
+void CaveRenderArea::TimerRoutine() {
+  static const CaveWindow* parent = qobject_cast<CaveWindow*>(parentWidget());
+  static int step_num = 0;
+
+  int steps = parent->GetSteps();
+  if (step_num >= steps) {
+    timer->stop();
+    step_num = 0;
+    return;
+  }
+
+  try {
+    ctr_.MakeNextGen(parent->GetLifeLimit(), parent->GetDeathLimit());
+    update();
+    step_num++;
+  } catch (const std::exception& e) {
+    /* std::cout << "Need to handle ERROR\n"; */
+    step_num = steps;
+  }
+
 }
 
 void CaveRenderArea::SimulationClicked() {
   CaveWindow* parent = qobject_cast<CaveWindow*>(parentWidget());
   try {
     if (parent->IsAuto()) {
-      int delta_t = parent->GetDelta();
-      int steps = parent->GetSteps();
-      int step_count = 0;
-      QTimer *timer = new QTimer(this);
-  
-     // захватываем переменные по значению и можем менять их внутри лямбды
-      connect(timer, &QTimer::timeout, [=]() mutable {
-          if (step_count < steps) {
-            ctr_.MakeNextGen(parent->GetLifeLimit(), parent->GetDeathLimit());
-            update();
-            step_count++;
-          } else {
-            timer->stop();
-          }
-          });
-      timer->setInterval(delta_t);
+      timer->setInterval(parent->GetDelta());
       timer->start();
     } else {
       ctr_.MakeNextGen(parent->GetLifeLimit(), parent->GetDeathLimit());
@@ -81,11 +91,6 @@ void CaveRenderArea::SimulationClicked() {
     }
   } catch (const std::exception& e) {
     /* emit ErrorOccured(e.what()); */
-    std::cout << "Need to handle ERROR\n";
+    /* std::cout << "Need to handle ERROR\n"; */
   }
 }
-
-/* void CaveRenderArea::SaveClicked() { */
-/*   ctr_.Save(); */
-/* } */
-

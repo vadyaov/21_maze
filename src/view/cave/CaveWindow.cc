@@ -7,7 +7,6 @@
 
 CaveWindow::CaveWindow() : render_area_{new CaveRenderArea(this)} {
   Button *browse_button = CreateButton(tr("Open"), SLOT(BrowseClicked()));
-  /* Button *save_button = CreateButton(tr("Save"), SLOT(SaveClicked())); */
   Button *generate_button = CreateButton(tr("Generate"), SLOT(GenerateClicked()));
   Button *simulation_button = CreateButton(tr("Simulate"), SLOT(SimulationClicked()));
   simulation_button->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
@@ -51,7 +50,6 @@ CaveWindow::CaveWindow() : render_area_{new CaveRenderArea(this)} {
   QGridLayout *settings_layout = new QGridLayout;
 
   settings_layout->addWidget(browse_button, 0, 0, 1, 3);
-  /* settings_layout->addWidget(save_button, 1, 0, 1, 3); */
   settings_layout->addWidget(generate_button, 1, 0, 1, 1);
   settings_layout->addWidget(simulation_button, 2, 0, 2, 1);
   settings_layout->addWidget(life_box, 2, 1, 1, 1);
@@ -64,13 +62,11 @@ CaveWindow::CaveWindow() : render_area_{new CaveRenderArea(this)} {
   settings_layout->addWidget(delta_box, 4, 2, 1, 1);
 
   main_layout->addWidget(render_area_, 0, 0, 2, 1);
-  /* main_layout->addWidget(err_label, 2, 0, 1, 1, Qt::AlignCenter); */
 
   main_layout->addLayout(settings_layout, 0, 1, 2, 3, Qt::AlignTop);
 
   setLayout(main_layout);
 
-  /* setFixedSize(750, 580); */
 }
 
 QSize CaveWindow::sizeHint() const {

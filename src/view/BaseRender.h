@@ -10,7 +10,7 @@ class BaseRenderArea : public QWidget {
     explicit BaseRenderArea(QWidget* parent = nullptr) : QWidget(parent) {
       setBackgroundRole(QPalette::Midlight);
       setAutoFillBackground(true);
-      setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+      /* setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding); */
       this->setFixedSize(500, 500);
     }
 
