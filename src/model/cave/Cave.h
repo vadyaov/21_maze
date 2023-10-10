@@ -10,9 +10,6 @@ namespace cave {
 
   class Cave {
     public:
-      Cave() : loader{new CaveLoader} {}
-      ~Cave() { delete loader; }
-
       void LoadCave(const std::string& path);
 
       std::size_t Size() const noexcept {
@@ -36,14 +33,12 @@ namespace cave {
       }
 
       void Init(int, double);
-      void NextGeneration(int life_lim, int death_lim);
-      /* void SaveToFile() const; */
+      void NextGeneration(int, int);
 
     private:
-      int CountAliveAround(int i, int j) const;
+      int CountAliveAround(int, int) const;
 
     private:
-      CaveLoader* loader;
       std::vector<bool> ceils_;
   };
 

@@ -4,7 +4,7 @@
 #include <QWidget>
 
 #include "MazeRenderArea.h"
-#include "./../redef_widgets/button.h"
+#include "./../other/button.h"
 
 #include <QSpinBox>
 

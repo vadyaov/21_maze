@@ -6,8 +6,9 @@
 namespace maze {
 
   void Maze::LoadMaze(const std::string& path) {
-    loader->OpenFile(path);
-    ceils_ = loader->ReadMaze();
+    MazeLoader loader;
+    loader.OpenFile(path);
+    ceils_ = loader.ReadMaze();
   }
 
   void Maze::Generate(int size) {
@@ -26,7 +27,7 @@ namespace maze {
 
         int current_ceil = i * size + j;
         bool choice = j == size - 1 ? true : rand() % 2;
-        ceils_[current_ceil].GetRight() = choice;
+        ceils_[current_ceil].right = choice;
 
         if (choice == false && set[current_ceil] != set[current_ceil + 1]) {
 
@@ -45,10 +46,8 @@ namespace maze {
     if (frst == scnd)
       throw std::logic_error("'Begin' and 'End' ceils are the same");
 
-    ClearSteps();
-
+    ClearStepsVisits();
     MakeWave(frst.first, frst.second, 0);
-    /* print_steps(); */
 
     return FindShortestWay(scnd);
   }
@@ -61,16 +60,16 @@ namespace maze {
     current_ceil.step = steps;
     current_ceil.visited = true;
 
-    if (!current_ceil.IsRight())
+    if (!current_ceil.right)
       MakeWave(row, column + 1, steps + 1);
 
-    if (!current_ceil.IsDown())
+    if (!current_ceil.bottm)
       MakeWave(row + 1, column, steps + 1);
 
-    if (column > 0 && !GetCeil(row, column - 1).IsRight())
+    if (column > 0 && !GetCeil(row, column - 1).right)
       MakeWave(row, column - 1, steps + 1);
 
-    if (row > 0 && !GetCeil(row - 1, column).IsDown())
+    if (row > 0 && !GetCeil(row - 1, column).bottm)
       MakeWave(row - 1, column, steps + 1);
   }
 
@@ -96,29 +95,36 @@ namespace maze {
 
     // ceil is not on the left side so we can check (row, col - 1) ceil
     if (j != 0) {
-      if (GetCeil(i, j - 1).step == current_step - 1 && !GetCeil(i, j - 1).IsRight())
+      if (GetCeil(i, j - 1).step == current_step - 1 && !GetCeil(i, j - 1).right)
         return {i, j - 1};
     }
 
     // ceil is not on the top so we can check (row - 1, col) ceil
     if (i != 0) {
-      if (GetCeil(i - 1, j).step == current_step - 1 && !GetCeil(i - 1, j).IsDown())
+      if (GetCeil(i - 1, j).step == current_step - 1 && !GetCeil(i - 1, j).bottm)
         return {i - 1, j};
     }
 
     // ceil is not on the right side so we can check (row, col + 1)
     if (j != Size() - 1) {
-      if (GetCeil(i, j + 1).step == current_step - 1 && !GetCeil(i, j).IsRight())
+      if (GetCeil(i, j + 1).step == current_step - 1 && !GetCeil(i, j).right)
         return {i, j + 1};
     }
 
     // ceil is not on the bot so we can check (row + 1, col)
     if (i != Size() - 1) {
-      if (GetCeil(i + 1, j).step == current_step - 1 && !GetCeil(i, j).IsDown())
+      if (GetCeil(i + 1, j).step == current_step - 1 && !GetCeil(i, j).bottm)
         return {i + 1, j};
     }
 
     throw std::logic_error("Impassable maze");
+  }
+
+  void Maze::ClearStepsVisits() {
+    for (Ceil& c : ceils_) {
+      c.step = 0;
+      c.visited = false;
+    }
   }
 
   std::size_t Maze::Size() const noexcept {
@@ -165,7 +171,7 @@ namespace maze {
 
     filestream << Size() << ' ' << Size() << std::endl;
     for (std::size_t i = 0, j = 1; i < ceils_.size(); ++i, ++j) {
-      filestream << ceils_[i].IsRight() << ' ';
+      filestream << ceils_[i].right << ' ';
       if (j == Size()) {
         filestream << std::endl;
         j = 0;
@@ -175,7 +181,7 @@ namespace maze {
     filestream << std::endl;
 
     for (std::size_t i = 0, j = 1; i < ceils_.size(); ++i, ++j) {
-      filestream << ceils_[i].IsDown() << ' ';
+      filestream << ceils_[i].bottm << ' ';
       if (j == Size()) {
         filestream << std::endl;
         j = 0;

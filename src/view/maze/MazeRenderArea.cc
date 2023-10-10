@@ -1,5 +1,4 @@
 #include "MazeRenderArea.h"
-
 #include "MazeWindow.h"
 
 #include <cmath>
@@ -9,7 +8,6 @@
 #include <QPainterPath>
 #include <QFileDialog>
 #include <QMouseEvent>
-
 #include <QObject>
 
 MazeRenderArea::MazeRenderArea(QWidget* parent) : BaseRenderArea(parent) {}

@@ -3,11 +3,6 @@
 #include <QPainter>
 #include <QPainterPath>
 
-QT_BEGIN_NAMESPACE
-class QPainter;
-class QPainterPath;
-QT_END_NAMESPACE
-
 void MazeRenderArea::DrawMaze(QPainter& p) {
   std::size_t sz = ctr_.Size();
 
@@ -28,10 +23,10 @@ void MazeRenderArea::DrawMaze(QPainter& p) {
       QPointF point3(y, x);
       QPointF point4(point3 + QPoint(length, 0.0f));
 
-      if (ctr_.At(i, j).IsRight())
+      if (ctr_.At(i, j).right)
         p.drawLine(point1, point2);
 
-      if (ctr_.At(j, i).IsDown())
+      if (ctr_.At(j, i).bottm)
         p.drawLine(point3, point4);
     }
   }

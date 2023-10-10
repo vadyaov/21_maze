@@ -36,12 +36,13 @@ CaveWindow::CaveWindow() : render_area_{new CaveRenderArea(this)} {
   init_chance_box->setSpecialValueText(tr("Initial chance"));
   size_box->setSpecialValueText(tr("Size"));
 
-  life_box->setValue(-1);
-  death_box->setValue(-1);
+  life_box->setValue(4);
+  death_box->setValue(3);
   init_chance_box->setValue(48);
   size_box->setValue(50);
   delta_box->setValue(400);
   steps_box->setValue(5);
+
   init_chance_box->setSuffix(" %");
   delta_box->setSuffix(" ms");
   steps_box->setSuffix(" step(s)");
@@ -66,7 +67,6 @@ CaveWindow::CaveWindow() : render_area_{new CaveRenderArea(this)} {
   main_layout->addLayout(settings_layout, 0, 1, 2, 3, Qt::AlignTop);
 
   setLayout(main_layout);
-
 }
 
 QSize CaveWindow::sizeHint() const {

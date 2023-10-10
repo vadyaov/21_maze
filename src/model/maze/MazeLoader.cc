@@ -9,13 +9,13 @@ namespace maze {
 
     for (std::size_t i = 0; i < maze.size(); ++i) {
         istrm_ >> value;
-        maze[i].GetRight() = value;
+        maze[i].right = value;
     }
 
 
     for (std::size_t i = 0; i < maze.size(); ++i) {
         istrm_ >> value;
-        maze[i].GetDown() = value;
+        maze[i].bottm = value;
     }
 
     CloseFile();

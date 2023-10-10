@@ -11,7 +11,7 @@ namespace maze {
       void Save() const;
       std::vector<Maze::Coord> FindSolution(Maze::Coord first, Maze::Coord second);
 
-      void print() {m.print();}
+      /* void print() {m.print();} */
 
       std::size_t Size() const noexcept;
       const std::vector<Ceil>& GetCeils() const & noexcept;

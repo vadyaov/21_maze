@@ -6,8 +6,9 @@
 namespace cave {
 
   void Cave::LoadCave(const std::string& path) {
-    loader->OpenFile(path);
-    ceils_ = loader->ReadCave();
+    CaveLoader loader;
+    loader.OpenFile(path);
+    ceils_ = loader.ReadCave();
   }
 
   void Cave::Init(int size, double probability) {

@@ -5,7 +5,7 @@
 
 #include "CaveRenderArea.h"
 
-#include "./../redef_widgets/button.h"
+#include "./../other/button.h"
 
 QT_BEGIN_NAMESPACE
 class QSpinBox;
