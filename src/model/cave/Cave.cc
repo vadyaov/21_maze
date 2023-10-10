@@ -36,14 +36,14 @@ namespace cave {
         int alive_num = CountAliveAround(i, j);
         if (At(i, j) == false) {
 
-          if (alive_num < death_lim)
+          if (alive_num <= death_lim)
             next[i * Size() + j] = true;
           else
             next[i * Size() + j] = false;
 
         } else if (At(i, j) == true) {
 
-          if (alive_num > life_lim)
+          if (alive_num > life_lim + 1)
             next[i * Size() + j] = false;
           else
             next[i * Size() + j] = true;
