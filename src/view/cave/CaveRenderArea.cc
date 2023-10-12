@@ -23,8 +23,6 @@ void CaveRenderArea::paintEvent(QPaintEvent * /* event */) {
 
       if (ctr_.At(i, j) == true)
         painter.fillRect(x, y, ceil_size, ceil_size, Qt::black);
-      else
-        painter.fillRect(x, y, ceil_size, ceil_size, Qt::white);
 
     }
   }
@@ -33,7 +31,6 @@ void CaveRenderArea::paintEvent(QPaintEvent * /* event */) {
 void CaveRenderArea::BrowseClicked() {
   QString filename = QFileDialog::getOpenFileName(this, tr("Open .txt cave"),
       "./examples/", tr("Text files (*.txt)"));
-  QFileInfo fileinfo(filename);
   try {
     ctr_.ReadCave(filename.toStdString());
     /* emit ErrorOccured(fileinfo.fileName() + " loaded successfully"); */

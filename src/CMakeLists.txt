@@ -11,8 +11,12 @@ set(CMAKE_AUTORCC ON)
 find_package(Qt6 COMPONENTS Widgets)
 
 add_compile_options(-Wall -Werror -Wextra -Wpedantic)
-add_compile_options(-fsanitize=address)
-add_link_options(-fsanitize=address)
+# add_compile_options(-fsanitize=address)
+# add_link_options(-fsanitize=address)
+
+add_executable(test tests/MazeTest.cc tests/CaveTest.cc)
+target_link_libraries(test PRIVATE gtest gtest_main)
+add_custom_target(run_tests COMMAND test DEPENDS test)
 
 qt_add_executable(maze
     model/maze/Maze.h model/maze/Ceil.h model/maze/Maze.cc
