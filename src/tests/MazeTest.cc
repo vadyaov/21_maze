@@ -9,6 +9,65 @@
 
 using namespace maze;
 
+TEST(maze_load, t1) {
+  Maze m;
+
+  std::string currentWorkingDirectory = std::filesystem::current_path().string();
+
+  std::filesystem::current_path("/home/vadim/Projects/School21/21_maze/src");
+
+  m.LoadMaze("examples/maze_1.txt");
+
+  std::filesystem::current_path(currentWorkingDirectory);
+
+  const std::vector<Ceil>& loaded = m.GetCeils();
+  const std::vector<Ceil> expected = {{0, 1}, {0, 0}, {0, 1}, {1, 0},
+                                      {1, 0}, {0, 0}, {1, 1}, {1, 0},
+                                      {0, 1}, {1, 1}, {0, 0}, {1, 1},
+                                      {0, 1}, {0, 1}, {0, 1}, {1, 1}};
+
+  EXPECT_EQ(loaded.size(), expected.size());
+
+  for (std::size_t i = 0; i < loaded.size(); ++i) {
+    EXPECT_EQ(loaded[i].right, expected[i].right);
+    EXPECT_EQ(loaded[i].bottm, expected[i].bottm);
+  }
+
+}
+
+TEST(maze_load, t2) {
+  Maze m;
+
+  std::string currentWorkingDirectory = std::filesystem::current_path().string();
+
+  std::filesystem::current_path("/home/vadim/Projects/School21/21_maze/src");
+
+  m.LoadMaze("examples/maze_3.txt");
+
+  std::filesystem::current_path(currentWorkingDirectory);
+
+  const std::vector<Ceil>& loaded = m.GetCeils();
+  const std::vector<Ceil> expected = {{1, 0}, {1, 0}, {0, 0}, {0, 1}, {0, 0}, {0, 1}, {1, 0}, {0, 0}, {0, 1}, {1, 0},
+                                      {0, 0}, {1, 1}, {0, 1}, {1, 0}, {1, 0}, {1, 0}, {1, 0}, {1, 0}, {1, 0}, {1, 0},
+                                      {1, 0}, {0, 0}, {0, 0}, {1, 1}, {0, 1}, {1, 1}, {1, 0}, {0, 1}, {1, 0}, {1, 0},
+                                      {1, 0}, {1, 0}, {1, 1}, {0, 1}, {0, 1}, {0, 1}, {1, 0}, {1, 0}, {0, 0}, {1, 0},
+                                      {0, 0}, {1, 0}, {0, 0}, {1, 1}, {0, 0}, {0, 1}, {1, 1}, {0, 0}, {1, 0}, {1, 0},
+                                      {1, 0}, {0, 1}, {1, 1}, {0, 0}, {1, 1}, {0, 0}, {0, 1}, {1, 1}, {1, 1}, {1, 0},
+                                      {1, 1}, {0, 1}, {1, 0}, {1, 0}, {1, 0}, {0, 1}, {0, 1}, {1, 0}, {0, 0}, {1, 1},
+                                      {0, 0}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {1, 0}, {0, 1}, {1, 0}, {1, 0}, {1, 0},
+                                      {1, 0}, {1, 0}, {0, 1}, {0, 1}, {1, 0}, {0, 1}, {0, 1}, {1, 1}, {0, 1}, {1, 0},
+                                      {0, 1}, {0, 1}, {0, 1}, {1, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {1, 1}
+  };
+
+  EXPECT_EQ(loaded.size(), expected.size());
+
+  for (std::size_t i = 0; i < loaded.size(); ++i) {
+    EXPECT_EQ(loaded[i].right, expected[i].right);
+    EXPECT_EQ(loaded[i].bottm, expected[i].bottm);
+  }
+
+}
+
 TEST(maze_solution, t1) {
   Maze m;
 

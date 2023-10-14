@@ -22,7 +22,7 @@ test: install
 	@cd $(BUILD_DIR) ; $(MAKE) test ; cd ..
 	$(BUILD_DIR)/$(TEST_EXEC)
 
-gcov_report: test
+gcov_report:
 	@cd $(BUILD_DIR) ; $(MAKE) gcov_report ; cd ..
 	@open $(BUILD_DIR)/coverage_report/index.html
 
