@@ -25,6 +25,18 @@ namespace maze {
       const Ceil& GetCeil(int row, int col) const;
       const std::vector<Ceil>& GetCeils() const & noexcept;
 
+    private:
+      std::vector<Ceil> ceils_;
+
+      void MakeWave(int row, int column, std::size_t steps);
+      void ClearStepsVisits();
+      std::vector<Coord> FindShortestWay(const Coord&);
+      Coord FindNextCeil(const Coord& begin);
+  };
+} // namespace maze
+
+#endif // MAZE_H_
+
       /* /1* debug *1/ */
       /* void print() { */
       /*   std::cout << "Size = " << ceils_.size() << std::endl; */
@@ -60,14 +72,3 @@ namespace maze {
       /*   } */
       /* } */
 
-    private:
-      std::vector<Ceil> ceils_;
-
-      void MakeWave(int row, int column, std::size_t steps);
-      void ClearStepsVisits();
-      std::vector<Coord> FindShortestWay(const Coord&);
-      Coord FindNextCeil(const Coord& begin);
-  };
-} // namespace maze
-
-#endif // MAZE_H_

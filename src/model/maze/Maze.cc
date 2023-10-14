@@ -85,6 +85,8 @@ namespace maze {
       shortest.push_back(next);
     }
 
+    /* for (std::size_t i = 0; i < shortest.size(); ++i) */
+    /*   std::cout << '{' << shortest[i].first << ", " << shortest[i].second << "}, "; */
     return shortest;
   }
 
@@ -132,13 +134,6 @@ namespace maze {
   }
 
   Ceil& Maze::GetCeil(int row, int col) {
-    if ((row < 0 || static_cast<size_t>(row) >= Size()) ||
-        (col < 0 || static_cast<size_t>(col) >= Size()))
-      throw std::invalid_argument("Incorrect i or j for operator()");
-    return ceils_[row * Size() + col];
-  }
-
-  const Ceil& Maze::GetCeil(int row, int col) const {
     if ((row < 0 || static_cast<size_t>(row) >= Size()) ||
         (col < 0 || static_cast<size_t>(col) >= Size()))
       throw std::invalid_argument("Incorrect i or j for operator()");

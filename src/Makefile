@@ -8,6 +8,7 @@ RM := rm -f
 MK := mkdir -p
 
 EXEC := maze
+TEST_EXEC := test
 ARCHIVE := $(CURR_DIR)/$(EXEC)
 
 all: install run
@@ -17,10 +18,18 @@ install:
 	@cmake $(CURR_DIR) -B $(BUILD_DIR)
 	@cd $(BUILD_DIR) ; $(MAKE) ; cd ..
 
+test: install
+	@cd $(BUILD_DIR) ; $(MAKE) test ; cd ..
+	$(BUILD_DIR)/$(TEST_EXEC)
+
+gcov_report: test
+	@cd $(BUILD_DIR) ; $(MAKE) gcov_report ; cd ..
+	@open $(BUILD_DIR)/coverage_report/index.html
+
 uninstall:
 	@$(RM) -r $(BUILD_DIR)
 
 run:
-	$(BUILD_DIR)/maze
+	$(BUILD_DIR)/$(EXEC)
 
 clean: uninstall

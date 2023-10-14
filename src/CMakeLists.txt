@@ -14,9 +14,19 @@ add_compile_options(-Wall -Werror -Wextra -Wpedantic)
 # add_compile_options(-fsanitize=address)
 # add_link_options(-fsanitize=address)
 
-add_executable(test tests/MazeTest.cc tests/CaveTest.cc)
+add_executable(test tests/MazeTest.cc tests/CaveTest.cc model/maze/Maze.cc model/maze/MazeLoader.cc)
 target_link_libraries(test PRIVATE gtest gtest_main)
+
+set(CMAKE_CXX_FLAGS "--coverage")
+
 add_custom_target(run_tests COMMAND test DEPENDS test)
+add_custom_target(gcov_report
+  COMMAND test
+  COMMAND lcov --capture --directory . --output-file coverage.info
+  COMMAND lcov --remove coverage.info '/usr/*' --output-file coverage.info
+  COMMAND genhtml coverage.info --output-directory coverage_report
+)
+add_dependencies(gcov_report test)
 
 qt_add_executable(maze
     model/maze/Maze.h model/maze/Ceil.h model/maze/Maze.cc
