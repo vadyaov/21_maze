@@ -12,6 +12,11 @@ CaveRenderArea::CaveRenderArea(QWidget* parent) : BaseRenderArea(parent), timer{
 }
 
 void CaveRenderArea::paintEvent(QPaintEvent * /* event */) {
+  static CaveWindow* parent = qobject_cast<CaveWindow*>(parentWidget());
+  static std::vector<QColor> alive_colors = {Qt::black, Qt::red, Qt::blue, Qt::magenta};
+  static std::vector<QColor> dead_colors = {Qt::lightGray, Qt::darkGray, Qt::blue, Qt::darkGreen};
+  const int color_1 = parent->LifeColor();
+  const int color_2 = parent->DeathColor();
   QPainter painter(this);
   std::size_t size = ctr_.Size();
   std::size_t ceil_size = 500.0 / size;
@@ -22,7 +27,9 @@ void CaveRenderArea::paintEvent(QPaintEvent * /* event */) {
       float y = i * ceil_size;
 
       if (ctr_.At(i, j) == true)
-        painter.fillRect(x, y, ceil_size, ceil_size, Qt::black);
+        painter.fillRect(x, y, ceil_size, ceil_size, alive_colors[color_1]);
+      else
+        painter.fillRect(x, y, ceil_size, ceil_size, dead_colors[color_2]);
 
     }
   }

@@ -9,6 +9,7 @@
 
 QT_BEGIN_NAMESPACE
 class QSpinBox;
+class QComboBox;
 class QRadioButton;
 QT_END_NAMESPACE
 
@@ -27,6 +28,8 @@ class CaveWindow : public QWidget {
     int GetDelta() const;
     int GetSteps() const;
     bool IsAuto() const;
+    int LifeColor() const;
+    int DeathColor() const;
 
   private:
     CaveRenderArea* render_area_;
@@ -41,6 +44,8 @@ class CaveWindow : public QWidget {
     QRadioButton *auto_, *manually_;
     QSpinBox *delta_box;
     QSpinBox *steps_box;
+    QComboBox *color_box_0;
+    QComboBox *color_box_1;
 };
 
 #endif // CAVEWINDOW_H_

@@ -3,6 +3,7 @@
 #include <QGridLayout>
 #include <QVBoxLayout>
 #include <QSpinBox>
+#include <QComboBox>
 #include <QRadioButton>
 
 CaveWindow::CaveWindow() : render_area_{new CaveRenderArea(this)} {
@@ -15,6 +16,10 @@ CaveWindow::CaveWindow() : render_area_{new CaveRenderArea(this)} {
   death_box = new QSpinBox;
   init_chance_box = new QSpinBox;
   size_box = new QSpinBox;
+  color_box_0 = new QComboBox;
+  color_box_1 = new QComboBox;
+  connect(color_box_0, SIGNAL(currentIndexChanged(int)), render_area_, SLOT(update()));
+  connect(color_box_1, SIGNAL(currentIndexChanged(int)), render_area_, SLOT(update()));
 
   auto_ = new QRadioButton("Auto");
   manually_ = new QRadioButton("Manually");
@@ -47,6 +52,16 @@ CaveWindow::CaveWindow() : render_area_{new CaveRenderArea(this)} {
   delta_box->setSuffix(" ms");
   steps_box->setSuffix(" step(s)");
 
+  color_box_0->addItem("DARK WHITE");
+  color_box_0->addItem("GRAY");
+  color_box_0->addItem("BLUE");
+  color_box_0->addItem("GREEN");
+
+  color_box_1->addItem("BLACK");
+  color_box_1->addItem("RED");
+  color_box_1->addItem("BLUE");
+  color_box_1->addItem("PURPLE");
+
   QGridLayout *main_layout = new QGridLayout;
   QGridLayout *settings_layout = new QGridLayout;
 
@@ -61,6 +76,8 @@ CaveWindow::CaveWindow() : render_area_{new CaveRenderArea(this)} {
   settings_layout->addWidget(manually_, 3, 2, 1, 1);
   settings_layout->addWidget(steps_box, 4, 1, 1, 1);
   settings_layout->addWidget(delta_box, 4, 2, 1, 1);
+  settings_layout->addWidget(color_box_0, 5, 1, 1, 1);
+  settings_layout->addWidget(color_box_1, 5, 2, 1, 1);
 
   main_layout->addWidget(render_area_, 0, 0, 2, 1);
 
@@ -109,4 +126,12 @@ int CaveWindow::GetSteps() const {
 
 bool CaveWindow::IsAuto() const {
   return auto_->isChecked();
+}
+
+int CaveWindow::LifeColor() const {
+  return color_box_1->currentIndex();
+}
+
+int CaveWindow::DeathColor() const {
+  return color_box_0->currentIndex();
 }
