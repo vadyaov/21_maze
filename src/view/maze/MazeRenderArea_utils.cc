@@ -3,6 +3,8 @@
 #include <QPainter>
 #include <QPainterPath>
 
+#include "MazeWindow.h"
+
 void MazeRenderArea::DrawMaze(QPainter& p) {
   std::size_t sz = ctr_.Size();
 
@@ -48,10 +50,14 @@ void MazeRenderArea::DrawPoints(QPainter& p) {
 }
 
 void MazeRenderArea::DrawSolution(QPainter& p) {
+  static const std::vector<QColor> color = {Qt::magenta, Qt::green, Qt::yellow, Qt::cyan};
   if (!solution.empty()) {
+    MazeWindow *sender = qobject_cast<MazeWindow*>(parentWidget());
+    int i = sender->SolutionColor();
+
     QPainterPath painterpath;
 
-    p.setPen(Qt::magenta);
+    p.setPen(color[i]);
     p.setBrush(Qt::NoBrush);
 
     painterpath.moveTo(point2);

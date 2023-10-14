@@ -17,8 +17,8 @@ void MazeRenderArea::paintEvent(QPaintEvent * /* event */) {
   painter.setPen(QPen(Qt::black, 2));
 
   DrawMaze(painter);
-  DrawPoints(painter);
   DrawSolution(painter);
+  DrawPoints(painter);
 }
 
 void MazeRenderArea::BrowseClicked() {
@@ -92,5 +92,4 @@ void MazeRenderArea::mousePressEvent(QMouseEvent *event) {
     solution.clear();
     update();
   }
-
 }
