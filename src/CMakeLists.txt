@@ -14,7 +14,10 @@ add_compile_options(-Wall -Werror -Wextra -Wpedantic)
 # add_compile_options(-fsanitize=address)
 # add_link_options(-fsanitize=address)
 
-add_executable(test tests/MazeTest.cc tests/CaveTest.cc model/maze/Maze.cc model/maze/MazeLoader.cc)
+add_executable(test
+  tests/MazeTest.cc model/maze/Maze.cc model/maze/MazeLoader.cc
+  tests/CaveTest.cc model/cave/Cave.cc
+)
 target_link_libraries(test PRIVATE gtest gtest_main)
 
 set(CMAKE_CXX_FLAGS "--coverage")

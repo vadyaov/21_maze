@@ -10,15 +10,11 @@ namespace cave {
 
   class Cave {
     public:
-      void LoadCave(const std::string& path);
+      void LoadCave(const std::string&);
 
-      std::size_t Size() const noexcept {
-        return std::sqrt(ceils_.size());
-      }
+      std::size_t Size() const noexcept;
 
-      int At(int i, int j) const {
-        return ceils_.at(i * Size() + j);
-      }
+      int At(int, int) const;
 
       void Init(int, double);
       void NextGeneration(int, int);

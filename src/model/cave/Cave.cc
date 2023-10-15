@@ -11,6 +11,14 @@ namespace cave {
     ceils_ = loader.ReadCave();
   }
 
+  std::size_t Cave::Size() const noexcept {
+    return std::sqrt(ceils_.size());
+  }
+
+  int Cave::At(int i, int j) const {
+    return ceils_.at(i * Size() + j);
+  }
+
   void Cave::Init(int size, double probability) {
     ceils_.resize(size * size);
 
@@ -21,9 +29,9 @@ namespace cave {
     for (int i = 0; i < size * size; ++i) {
       double random_value = normal_distrib(engine);
       if (random_value <= probability)
-        ceils_[i] = false;
-      else
         ceils_[i] = true;
+      else
+        ceils_[i] = false;
     }
 
   }
