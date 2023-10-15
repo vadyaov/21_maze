@@ -134,7 +134,7 @@ namespace maze {
   Ceil& Maze::GetCeil(int row, int col) {
     if ((row < 0 || static_cast<size_t>(row) >= Size()) ||
         (col < 0 || static_cast<size_t>(col) >= Size()))
-      throw std::invalid_argument("Incorrect i or j for operator()");
+      throw std::out_of_range("Incorrect i or j for operator()");
     return ceils_[row * Size() + col];
   }
 

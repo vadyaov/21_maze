@@ -18,7 +18,7 @@ install:
 	@cmake $(CURR_DIR) -B $(BUILD_DIR)
 	@cd $(BUILD_DIR) ; $(MAKE) ; cd ..
 
-test: install
+tests: install
 	@cd $(BUILD_DIR) ; $(MAKE) test ; cd ..
 	$(BUILD_DIR)/$(TEST_EXEC)
 
