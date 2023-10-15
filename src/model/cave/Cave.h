@@ -3,7 +3,6 @@
 
 #include "CaveLoader.h"
 
-#include <iostream>
 #include <cmath>
 
 namespace cave {
@@ -20,7 +19,7 @@ namespace cave {
       void NextGeneration(int, int);
 
     private:
-      int CountAliveAround(int, int) const;
+      int CountAliveAround(std::size_t, std::size_t) const;
 
     private:
       std::vector<bool> ceils_;

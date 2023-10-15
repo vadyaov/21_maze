@@ -22,6 +22,10 @@ namespace maze {
     return m.GetCeils();
   }
 
+  Ceil& Controller::At(int i, int j) {
+    return m.GetCeil(i, j);
+  }
+
   void Controller::Save() const {
     m.SaveToFile();
   }

@@ -1,5 +1,3 @@
-/* Должно быть обеспечено полное покрытие unit-тестами модуля генерации пещер */
-
 #include <gtest/gtest.h>
 
 #include <filesystem>
@@ -88,10 +86,6 @@ TEST(cave_simulation, t1) {
 
   for (int i = 0; i < 20; ++i)
     cave.NextGeneration(4, 3);
-
-  /* for (std::size_t i = 0; i < cave.Size(); ++i) */
-  /*   for (std::size_t j = 0; j < cave.Size(); ++j) */
-  /*     std::cout << cave.At(i, j) << ", "; */
 
   std::vector<bool> expected = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                                 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,

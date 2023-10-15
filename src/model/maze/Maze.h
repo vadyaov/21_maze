@@ -1,7 +1,6 @@
 #ifndef MAZE_H_
 #define MAZE_H_
 
-#include <iostream>
 #include <cmath>
 #include <utility>
 
@@ -13,25 +12,24 @@ namespace maze {
     public:
       using Coord = std::pair<int, int>;
 
-      void LoadMaze(const std::string& path);
-      void Generate(int size);
+      void LoadMaze(const std::string&);
+      void Generate(int);
       void SaveToFile() const;
+      std::vector<Coord> FindSolution(const Coord&, const Coord&);
 
-      std::vector<Coord> FindSolution(const Coord& start, const Coord& finish);
-
-      /* Getters */
       std::size_t Size() const noexcept;
-      Ceil& GetCeil(int row, int col);
-      const Ceil& GetCeil(int row, int col) const;
+      Ceil& GetCeil(int, int);
       const std::vector<Ceil>& GetCeils() const & noexcept;
+
+    private:
+      void MakeWave(int, int, int);
+      void ClearStepsVisits();
+      std::vector<Coord> FindShortestWay(const Coord&);
+      Coord FindNextCeil(const Coord&);
 
     private:
       std::vector<Ceil> ceils_;
 
-      void MakeWave(int row, int column, std::size_t steps);
-      void ClearStepsVisits();
-      std::vector<Coord> FindShortestWay(const Coord&);
-      Coord FindNextCeil(const Coord& begin);
   };
 } // namespace maze
 

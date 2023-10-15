@@ -21,23 +21,20 @@ class MazeRenderArea : public BaseRenderArea {
     void FindSolutionClicked();
     void SaveClicked();
 
-  signals:
-    void ErrorOccured(const QString& msg);
-
   protected:
-    void paintEvent(QPaintEvent *event) override;
-    void mousePressEvent(QMouseEvent *event) override;
+    void paintEvent(QPaintEvent*) override;
+    void mousePressEvent(QMouseEvent*) override;
 
   private:
-    void DrawMaze(QPainter& p);
-    void DrawPoints(QPainter& p);
-    void DrawSolution(QPainter& p);
+    void DrawMaze(QPainter&);
+    void DrawPoints(QPainter&);
+    void DrawSolution(QPainter&);
 
-    void HandleLeftMouseEvent(int x, int y);
-    void HandleRightMouseEvent(int x, int y);
-    bool IsPointNear(const QPointF& point, int x, int y) const;
-    QPointF FindCenterPos(const std::pair<int, int>& coord);
-    std::pair<int, int> ToCeilCoord(int x, int y);
+    void HandleLeftMouseEvent(int, int);
+    void HandleRightMouseEvent(int, int);
+    bool IsPointNear(const QPointF&, int, int) const;
+    QPointF FindCenterPos(const std::pair<int, int>&);
+    std::pair<int, int> ToCeilCoord(int, int);
 
   private:
     maze::Controller ctr_;

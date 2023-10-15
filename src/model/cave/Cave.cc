@@ -1,6 +1,5 @@
 #include "Cave.h"
 
-#include <iostream>
 #include <random>
 
 namespace cave {
@@ -42,7 +41,6 @@ namespace cave {
     for (std::size_t i = 0; i < Size(); ++i)
       for (std::size_t j = 0; j < Size(); ++j) {
         int alive_num = CountAliveAround(i, j);
-        /* std::cout << "\n[" << i << "," << j << "] -- " << alive_num << "alive\n"; */
 
         if (At(i, j) == false) {
           if (alive_num <= death_lim)
@@ -57,54 +55,53 @@ namespace cave {
 
   }
 
-  int Cave::CountAliveAround(int i, int j) const {
+  int Cave::CountAliveAround(std::size_t i, std::size_t j) const {
     int num = 0;
 
-    /* check left */
-    if (j != 0 && this->At(i, j - 1) == false) {
+    /* left */
+    if (j != 0 && At(i, j - 1) == false) {
       /* std::cout << "left "; */
       ++num;
     }
 
-    /* check left up */
-    if (j != 0 && i != 0 && this->At(i - 1, j - 1) == false) {
+    /* left top */
+    if (j != 0 && i != 0 && At(i - 1, j - 1) == false) {
       ++num;
       /* std::cout << "left up "; */
     }
 
-    /* check up */
-    if (i != 0 && this->At(i - 1, j) == false) {
+    /* top */
+    if (i != 0 && At(i - 1, j) == false) {
       ++num;
       /* std::cout << "up "; */
     }
 
-    /* check right up */
-    if (j != static_cast<int>(Size()) - 1 && i != 0 && this->At(i - 1, j + 1) == false) {
+    /* right top */
+    if (j != Size() - 1 && i != 0 && At(i - 1, j + 1) == false) {
       /* std::cout << "right up "; */
       ++num;
     }
 
-    /* check right */
-    if (j != static_cast<int>(Size()) - 1 && this->At(i, j + 1) == false) {
+    /* right */
+    if (j != Size() - 1 && At(i, j + 1) == false) {
       ++num;
       /* std::cout << "right "; */
     }
 
-    /* check right bottom */
-    if (j != static_cast<int>(Size()) - 1 && i != static_cast<int>(Size()) - 1 &&
-        this->At(i + 1, j + 1) == false) {
+    /* right bot */
+    if (j != Size() - 1 && i != Size() - 1 && At(i + 1, j + 1) == false) {
       ++num;
       /* std::cout << "right bot "; */
     }
 
-    /* check bottom */
-    if (i != static_cast<int>(Size()) - 1 && this->At(i + 1, j) == false) {
+    /* bot */
+    if (i != Size() - 1 && At(i + 1, j) == false) {
       ++num;
       /* std::cout << "bot "; */
     }
 
-    /* check left bottom */
-    if (i != static_cast<int>(Size()) - 1 && j != 0 && this->At(i + 1, j - 1) == false) {
+    /* left bot */
+    if (i != Size() - 1 && j != 0 && At(i + 1, j - 1) == false) {
       /* std::cout << "left bot "; */
       ++num;
     }

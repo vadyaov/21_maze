@@ -52,7 +52,7 @@ namespace maze {
     return FindShortestWay(scnd);
   }
 
-  void Maze::MakeWave(int row, int column, std::size_t steps) {
+  void Maze::MakeWave(int row, int column, int steps) {
     Ceil& current_ceil = GetCeil(row, column);
 
     if (current_ceil.visited == true) return;
@@ -85,8 +85,6 @@ namespace maze {
       shortest.push_back(next);
     }
 
-    /* for (std::size_t i = 0; i < shortest.size(); ++i) */
-    /*   std::cout << '{' << shortest[i].first << ", " << shortest[i].second << "}, "; */
     return shortest;
   }
 

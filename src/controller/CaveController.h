@@ -7,17 +7,14 @@ namespace cave {
 
   class Controller {
     public:
-      void ReadCave(const std::string& path);
-      /* void GenCave(std::size_t size); */
+      void ReadCave(const std::string&);
 
       std::size_t Size() const noexcept;
-      /* const std::vector<bool>& GetCeils() const & noexcept; */
 
-      bool At(int i, int j) const;
-      /* const bool& At(int i, int j) const; */
+      bool At(int, int) const;
 
-      void MakeNextGen(int life, int death);
-      void InitializeCave(int size, double prob);
+      void MakeNextGen(int, int);
+      void InitializeCave(int, double);
       void Save() const;
 
     private:

@@ -4,14 +4,12 @@
 #include <string>
 #include <vector>
 #include <fstream>
-#include <iostream>
 
 class BaseLoader {
   public:
     BaseLoader() : istrm_{}, sz_{0} {}
 
     void OpenFile(const std::string& path) {
-      std::cout << "PATH: " << path << std::endl;
       istrm_.open(path);
       if (!istrm_.is_open())
         throw std::invalid_argument("Incorrect path.");

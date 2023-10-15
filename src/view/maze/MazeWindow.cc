@@ -1,7 +1,6 @@
 #include "MazeWindow.h"
 
 #include <QGridLayout>
-/* #include <QLabel> */
 #include <QSpinBox>
 #include <QComboBox>
 #include <QFont>
@@ -15,9 +14,9 @@ MazeWindow::MazeWindow() : render_area_{new MazeRenderArea(this)} {
   size_box = new QSpinBox;
   color_box = new QComboBox;
   size_box->setRange(2, 50);
+
   size_box->setFixedHeight(30);
   color_box->setFixedHeight(30);
-
   size_box->setFixedWidth(100);
   color_box->setFixedWidth(100);
 

@@ -12,7 +12,7 @@
 
 MazeRenderArea::MazeRenderArea(QWidget* parent) : BaseRenderArea(parent) {}
 
-void MazeRenderArea::paintEvent(QPaintEvent * /* event */) {
+void MazeRenderArea::paintEvent(QPaintEvent* /* event */) {
   QPainter painter(this);
   painter.setPen(QPen(Qt::black, 2));
 
@@ -22,17 +22,15 @@ void MazeRenderArea::paintEvent(QPaintEvent * /* event */) {
 }
 
 void MazeRenderArea::BrowseClicked() {
-  QString filename = QFileDialog::getOpenFileName(this, tr("Open .txt maze"), // leak QFileDialog
+  QString filename = QFileDialog::getOpenFileName(this, tr("Open .txt maze"),
       "./examples/", tr("Text files (*.txt)"));
-  QFileInfo fileinfo(filename);
   try {
     ctr_.ReadMaze(filename.toStdString());
     point1 = point2 = {0, 0};
     solution.clear();
-    /* emit ErrorOccured(fileinfo.fileName() + " loaded successfully"); */
     update();
-  } catch (const std::invalid_argument& e) {
-    /* emit ErrorOccured(e.what()); */
+  } catch (...) {
+    // do nothing
   }
 }
 
@@ -42,7 +40,6 @@ void MazeRenderArea::GenerateClicked() {
     ctr_.GenMaze(sender->GetSize());
     point1 = point2 = {0, 0};
     solution.clear();
-    /* emit ErrorOccured("Generated " + QString::number(size) + 'x' + QString::number(size)); */
     update();
   }
 }
@@ -67,10 +64,9 @@ void MazeRenderArea::FindSolutionClicked() {
     for (const auto& coordinate : solution_ceils)
       solution.push_back(FindCenterPos(coordinate));
 
-    /* emit ErrorOccured("Solution found"); */
     update();
-  } catch (const std::exception& e) {
-    /* emit ErrorOccured(e.what()); */
+  } catch (...) {
+    // do nothing
   }
 }
 
