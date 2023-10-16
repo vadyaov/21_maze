@@ -19,10 +19,10 @@ School21 Maze project
 
 ## Installing
 
-git clone git@github.com:vadyaov/21_maze.git
+`git clone git@github.com:vadyaov/21_maze.git`
 
 Dependencies:
-- Qt framework
+- QT
 
 ## Usage
 
