@@ -2,6 +2,8 @@
 
 School21 Maze project
 
+![Пример работы приложения](example.gif)
+
 ## Maze
 
 - Open maze from .txt file (see src/examples)
@@ -14,6 +16,15 @@ School21 Maze project
 - Open cave from .txt file (see src/examples)
 - Generate cave of a given size with given probabilty of alive cells
 - Simulating cave generation using celluar machine with given life and death limits (from 1 to 7).
-  `` If "live" cells are surrounded by "live" cells, the number of which is less than the "death" limit,
-     they "die". In the same way, if "dead" cells are next to "live" cells, the number of which is greater
-     than the "birth" limit, they become "live". ``
+
+## Installing
+
+git clone git@github.com:vadyaov/21_maze.git
+
+Dependencies:
+- Qt framework
+
+## Usage
+
+- install and run: `make all`
+- documentation: `make dvi`
