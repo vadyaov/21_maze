@@ -30,6 +30,21 @@ dvi:
 	doxygen Doxyfile
 	open $(BUILD_DIR)/html/index.html
 
+dist: copy_dirs
+	tar -cvzf maze.tar.gz src/
+	@$(RM) -r src/
+
+copy_dirs:
+	$(MK) src
+	cp -r $(MODEL_DIR) ./src
+	cp -r $(VIEW_DIR) ./src
+	cp -r $(CONTROLLER_DIR) ./src
+	cp -r tests ./src
+	cp -r examples ./src
+	cp Makefile ./src
+	cp Doxyfile ./src
+	cp CMakeLists.txt ./src
+
 uninstall:
 	@$(RM) -r $(BUILD_DIR)
 
