@@ -1,6 +1,7 @@
 #include "Cave.h"
 
 #include <random>
+#include <cmath>
 
 namespace cave {
 
@@ -14,8 +15,8 @@ namespace cave {
     return std::sqrt(ceils_.size());
   }
 
-  int Cave::At(int i, int j) const {
-    return ceils_.at(i * Size() + j);
+  bool Cave::At(int row, int col) const {
+    return ceils_.at(row * Size() + col);
   }
 
   void Cave::Init(int size, double probability) {

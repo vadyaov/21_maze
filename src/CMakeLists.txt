@@ -16,7 +16,7 @@ add_compile_options(-Wall -Werror -Wextra -Wpedantic)
 
 add_executable(test
   tests/MazeTest.cc model/maze/Maze.cc model/maze/MazeLoader.cc
-  tests/CaveTest.cc model/cave/Cave.cc
+  tests/CaveTest.cc model/cave/Cave.cc model/cave/CaveLoader.cc
 )
 target_link_libraries(test PRIVATE gtest gtest_main)
 
@@ -32,12 +32,13 @@ add_custom_target(gcov_report
 add_dependencies(gcov_report test)
 
 qt_add_executable(maze
-    model/maze/Maze.h model/maze/Ceil.h model/maze/Maze.cc
-    model/maze/MazeLoader.h model/maze/MazeLoader.cc
     model/BaseLoader.h
 
+    model/maze/Maze.h model/maze/Ceil.h model/maze/Maze.cc
+    model/maze/MazeLoader.h model/maze/MazeLoader.cc
+
     model/cave/Cave.h model/cave/Cave.cc
-    model/cave/CaveLoader.h
+    model/cave/CaveLoader.h model/cave/CaveLoader.cc
 
     view/main.cc
     view/MainWindow.h

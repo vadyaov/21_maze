@@ -3,22 +3,36 @@
 
 #include "../BaseLoader.h"
 
-class CaveLoader : public BaseLoader {
-  public:
-    std::vector<bool> ReadCave() {
-      int value;
-      std::vector<bool> cave;
-      cave.resize(sz_ * sz_);
 
-      for (std::size_t i = 0; i < cave.size(); ++i) {
-          istrm_ >> value;
-          cave[i] = value;
-      }
+/**
+ * @namespace cave
+ * @brief A namespace containing classes for cave-related operations.
+ */
+namespace cave {
 
-      CloseFile();
+  /**
+   * @class CaveLoader
+   * @brief A class for loading cave information from a file.
+   *
+   * The `CaveLoader` class is responsible for reading maze information from
+   * a file and populating a vector of cave cells.
+   *
+   * Inherits from BaseLoader.
+   */
+  class CaveLoader : public BaseLoader {
+    public:
+      /**
+       * @brief Reads cave information from the currently opened file.
+       *
+       * This method reads the structure of a cave from the file and populates
+       * a vector of cave cells with the information. The `sz_` member variable
+       * is used to determine the size of the cave.
+       *
+       * @return A vector of cave cells representing the cave structure.
+       */
+      std::vector<bool> ReadCave();
+  };
 
-      return cave;
-    }
-};
+} // namespace cave
 
 #endif // CAVE_LOADER_H_

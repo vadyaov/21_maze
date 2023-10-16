@@ -1,5 +1,5 @@
-#ifndef LOADER_H_
-#define LOADER_H_
+#ifndef MAZE_LOADER_H_
+#define MAZE_LOADER_H_
 
 #include "../BaseLoader.h"
 #include "Ceil.h"
@@ -10,12 +10,14 @@
  */
 namespace maze {
 
-    /**
+  /**
    * @class MazeLoader
    * @brief A class for loading maze information from a file.
    *
    * The `MazeLoader` class is responsible for reading maze information from
    * a file and populating a vector of maze cells.
+   *
+   * Inherits from BaseLoader.
    */
   class MazeLoader : public BaseLoader {
     public:
@@ -32,4 +34,4 @@ namespace maze {
   };
 } // namespace maze
 
-#endif // LOADER_H_
+#endif // MAZE_LOADER_H_

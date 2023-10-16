@@ -3,10 +3,23 @@
 
 #include <QWidget>
 
+/**
+ * @class BaseRenderArea
+ * @brief A base class for rendering graphical elements on a QWidget.
+ *
+ * The `BaseRenderArea` class serves as a base class for rendering graphical elements
+ * on a QWidget. It provides methods for setting the background, enabling auto background
+ * filling, and defining the size of the rendering area.
+ */
 class BaseRenderArea : public QWidget {
   Q_OBJECT
 
   public:
+    /**
+     * @brief Constructor for the BaseRenderArea class.
+     *
+     * @param parent The parent widget.
+     */
     explicit BaseRenderArea(QWidget* parent = nullptr) : QWidget(parent) {
       setBackgroundRole(QPalette::Midlight);
       setAutoFillBackground(true);
@@ -14,7 +27,14 @@ class BaseRenderArea : public QWidget {
     }
 
   public slots:
+    /**
+     * @brief Slot for handling a "Browse" button click.
+     */
     virtual void BrowseClicked() = 0;
+
+    /**
+     * @brief Slot for handling a "Generate" button click.
+     */
     virtual void GenerateClicked() = 0;
 
 };

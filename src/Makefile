@@ -26,6 +26,10 @@ gcov_report: install
 	@cd $(BUILD_DIR) ; $(MAKE) gcov_report ; cd ..
 	@open $(BUILD_DIR)/coverage_report/index.html
 
+dvi:
+	doxygen Doxyfile
+	open $(BUILD_DIR)/html/index.html
+
 uninstall:
 	@$(RM) -r $(BUILD_DIR)
 
