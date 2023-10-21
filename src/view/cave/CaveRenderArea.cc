@@ -13,8 +13,8 @@ CaveRenderArea::CaveRenderArea(QWidget* parent) : BaseRenderArea(parent), timer{
 
 void CaveRenderArea::paintEvent(QPaintEvent * /* event */) {
   static CaveWindow* parent = qobject_cast<CaveWindow*>(parentWidget());
-  static std::vector<QColor> alive_colors = {Qt::black, Qt::red, Qt::blue, Qt::magenta};
-  static std::vector<QColor> dead_colors = {Qt::lightGray, Qt::darkGray, Qt::blue, Qt::darkGreen};
+  static const QColor alive_colors[] = {Qt::black, Qt::red, Qt::blue, Qt::magenta};
+  static const QColor dead_colors[] = {Qt::lightGray, Qt::darkGray, Qt::blue, Qt::darkGreen};
   const int color_1 = parent->LifeColor();
   const int color_2 = parent->DeathColor();
   QPainter painter(this);
@@ -56,7 +56,6 @@ void CaveRenderArea::GenerateClicked() {
     ctr_.InitializeCave(parent->GetSize(), parent->GetInitChance());
     update();
   } catch (const std::exception& e) {
-    /* emit ErrorOccured(e.what()); */
     /* std::cout << "Need to handle ERROR\n"; */
   }
 }
@@ -77,14 +76,15 @@ void CaveRenderArea::TimerRoutine() {
     update();
     step_num++;
   } catch (const std::exception& e) {
-    /* std::cout << "Need to handle ERROR\n"; */
     step_num = steps;
   }
 
 }
 
 void CaveRenderArea::SimulationClicked() {
-  CaveWindow* parent = qobject_cast<CaveWindow*>(parentWidget());
+  if (timer->isActive()) return; // if simulating process on --> then do nothing
+
+  static const CaveWindow* parent = qobject_cast<CaveWindow*>(parentWidget());
   try {
     if (parent->IsAuto()) {
       timer->setInterval(parent->GetDelta());
@@ -94,7 +94,6 @@ void CaveRenderArea::SimulationClicked() {
       update();
     }
   } catch (const std::exception& e) {
-    /* emit ErrorOccured(e.what()); */
     /* std::cout << "Need to handle ERROR\n"; */
   }
 }

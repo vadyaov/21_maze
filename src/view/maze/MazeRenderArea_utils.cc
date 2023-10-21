@@ -50,7 +50,7 @@ void MazeRenderArea::DrawPoints(QPainter& p) {
 }
 
 void MazeRenderArea::DrawSolution(QPainter& p) {
-  static const std::vector<QColor> color = {Qt::magenta, Qt::green, Qt::yellow, Qt::cyan};
+  static const QColor color[] = {Qt::magenta, Qt::green, Qt::yellow, Qt::cyan};
   if (!solution.empty()) {
     MazeWindow *sender = qobject_cast<MazeWindow*>(parentWidget());
     int i = sender->SolutionColor();
