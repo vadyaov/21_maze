@@ -1,10 +1,9 @@
 #include "Maze.h"
+#include "Eller.h"
 
 #include <iostream>
 #include <ctime>
 #include <algorithm>
-#include <random>
-#include <numeric>
 
 namespace maze {
 
@@ -14,130 +13,9 @@ namespace maze {
     ceils_ = loader.ReadMaze();
   }
 
-  /*
-  1. Инициализируйте ячейки первой строки, так чтобы каждая ячейка принадлежала
-    своему собственному множеству.
-
-  2. Затем случайным образом объединяйте соседние ячейки, но только если они не
-    принадлежат одному и тому же множеству. При объединении ячеек объедините
-    множества обеих ячеек в одно, указывая, что все ячейки в обоих множествах
-    теперь соединены (существует путь, соединяющий любые две ячейки в множестве).
-
-  3. Для каждого множества случайным образом создайте вертикальные связи вниз к
-    следующей строке. Все оставшиеся множества должны иметь как минимум одну
-    вертикальную связь. Ячейки в следующей строке, соединенные таким образом,
-    должны принадлежать множеству ячейки выше.
-
-  4. Заполните оставшиеся ячейки в следующей строке, помещая их в собственные множества.
-    Повторяйте процесс до достижения последней строки.
-
-  5. Для последней строки объедините все соседние ячейки, не принадлежащие одному
-    и тому же множеству, и уберите вертикальные связи. Готово!
-  */
-  bool RandomChoice() {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(0, 1);
-
-    return dis(gen) < 0.5 ? true : false;
-  }
 
   void Maze::Generate(int size) {
-    ceils_.resize(size * size);
-    std::fill(ceils_.begin(), ceils_.end(), Ceil());
-    std::vector<int> myset(size * size, 0); // set for all cells
-
-
-    for (int i = 0; i < size; ++i) {
-
-      {
-      // 1. fill the first line set
-      int start = i * size + 1;
-      for (int j = 0; j < size; ++j)
-        if (myset[i * size + j] == 0)
-          myset[i * size + j] = start++;
-      }
-
-      // 2. Walk through row and place right walls
-      for (int j = 0; j < size - 1; ++j) {
-        int &curr_set_value = myset[i * size + j];
-        int &right_set_value = myset[i * size + j + 1];
-
-        if (curr_set_value != right_set_value && RandomChoice()) {
-          right_set_value = curr_set_value;
-          GetCeil(i, j).right = false;
-        }
-      }
-
-      // 3. Walk through row and place bottm walls
-      if (i != size - 1) {
-
-        for (int j = 0; j < size; ++j) {
-          if (RandomChoice()) {
-            myset[(i + 1) * size + j] = myset[i * size + j];
-            GetCeil(i, j).bottm = false;
-          }
-        }
-
-        // 3.1 check for at least one bottm not wall
-        bool placed = !GetCeil(i, 0).bottm;
-        for (int j = 1; j < size; ++j) {
-          int curr_set_value = myset[i * size + j];
-          int prev_set_value = myset[i * size + j - 1];
-
-          /* std::cout << "i: " << i << " j: " << j << std::endl; */
-          /* std::cout << "curr: " << curr_set_value << " prev: " << prev_set_value << std::endl; */
-          /* std::cout << "placed = " << placed << std::endl; */
-
-          if (prev_set_value != curr_set_value) {
-            if (placed == false) {
-              GetCeil(i, j - 1).bottm = false;
-              myset[(i + 1) * size + j - 1] = prev_set_value;
-            }
-            placed = false;
-          }
-
-          if (GetCeil(i, j).bottm == false) placed = true;
-
-          if (j == size - 1 && placed == false) {
-              GetCeil(i, j).bottm = false;
-              myset[(i + 1) * size + j] = curr_set_value;
-          }
-        }
-
-      }
-
-    for (std::size_t k = 0, j = 1; k < myset.size(); ++k, ++j) {
-      std::cout << myset[k] << ' ';
-      if (j == (size_t)size) {
-        std::cout << std::endl;
-        j = 0;
-      }
-    }
-    std::cout << std::endl;
-
-    }
-
-      // 4 Last row merge different cells
-    for (int i = size - 1, j = 0; j < size - 1; ++j) {
-      if (myset[i * size + j] != myset[i * size + j + 1]) {
-        myset[i * size + j + 1] = myset[i * size + j];
-        GetCeil(i, j).right = false;
-      }
-    }
-
-
-
-    std::cout << "AFTER ALGO\n";
-    for (std::size_t i = 0, j = 1; i < myset.size(); ++i, ++j) {
-      std::cout << myset[i] << ' ';
-      if (j == (size_t)size) {
-        std::cout << std::endl;
-        j = 0;
-      }
-    }
-    std::cout << std::endl;
-
+    ceils_ = Eller::GeneratePerfectMaze(size);
   }
 
   std::vector<Maze::Coord> Maze::FindSolution(const Coord& frst, const Coord& scnd) {
