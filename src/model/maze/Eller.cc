@@ -59,54 +59,66 @@ bool RandBool() {
 void ToUniqueSet(std::vector<int>& arr) {
     std::unordered_set<int> uniqueNumbers;
 
-    // Перебираем вектор, чтобы найти уникальные числа
     for (int num : arr) {
-        if (num != 0) {
-            uniqueNumbers.insert(num);
-        }
+      if (num != 0) {
+          uniqueNumbers.insert(num);
+      }
     }
 
     int replacement = 1;
     for (int& num : arr) {
-        if (num == 0) {
-            // Заменяем ноль уникальным числом, которого нет во входном массиве
-            while (uniqueNumbers.find(replacement) != uniqueNumbers.end()) {
-                replacement++;
-            }
-            num = replacement;
-            uniqueNumbers.insert(replacement);
-        }
+      if (num == 0) {
+          while (uniqueNumbers.find(replacement) != uniqueNumbers.end()) {
+              replacement++;
+          }
+          num = replacement;
+          uniqueNumbers.insert(replacement);
+      }
     }
-
 }
 
 bool Lonely(const std::vector<int>& set, int j) {
   // lonely on the left side
-  if (j == 0 && set[j + 1] != set[j]) return true;
+  if (j == 0 && set[j + 1] != set[j]) {
+    std::cout << "alone left!\n";
+    return true;
+  }
   // lonely on the right side
-  if (static_cast<std::size_t>(j) == set.size() - 1 && set[j - 1] != set[j]) return true;
+  if (static_cast<std::size_t>(j) == set.size() - 1 && set[j - 1] != set[j]) {
+    std::cout << "alone right!\n";
+    return true;
+  }
 
   // lonely middle
   return set[j - 1] != set[j] && set[j + 1] != set[j];
 }
 
 bool AloneWithoutWall(const std::vector<int>& set, std::vector<Ceil>& cells, int i, int j) {
-  while (static_cast<std::size_t>(j) < set.size() - 1 && set[j] == set[j + 1]) {
-    if (cells[i * set.size() + ++j].bottm == false) return false;
+  int pos = j;
+  while (static_cast<std::size_t>(pos) < set.size() - 1 && set[pos] == set[pos + 1]) {
+    if (cells[i * set.size() + ++pos].bottm == false) return false;
   }
 
-  while (static_cast<std::size_t>(j) != 0 && set[j - 1] == set[j]) {
-    if (cells[i * set.size() + --j].bottm == false) return false;
+  pos = j;
+
+  while (static_cast<std::size_t>(pos) != 0 && set[pos - 1] == set[pos]) {
+    if (cells[i * set.size() + --pos].bottm == false) return false;
   }
 
   return true;
 }
 
 bool CheckBottomWallRule(const std::vector<int>& set, std::vector<Ceil>& cells, int i, int j) {
-  if (Lonely(set, j)) return false;
+  if (Lonely(set, j)) {
+    std::cout << "cell " << i << ":" << j << " alone in its set\n";
+    return false;
+  }
   
   // точно есть соседи, но есть ли у них нижние стенки?
-  if (AloneWithoutWall(set, cells, i, j)) return false;
+  if (AloneWithoutWall(set, cells, i, j)) {
+    std::cout << "cell " << i << ":" << j << " not alone but only has no bot wall\n";
+    return false;
+  }
 
   return true;
 }
@@ -114,41 +126,13 @@ bool CheckBottomWallRule(const std::vector<int>& set, std::vector<Ceil>& cells, 
 std::vector<Ceil> Eller::GeneratePerfectMaze(int size) {
   std::vector<Ceil> perfect_maze(size * size, {0, 0});
 
-    std::vector<int> first(size, 0);
-    // 2. join to unique set
-    for (int i = 0; i < size; ++i)
-      first[i] = i + 1;
-
-    // 3. right walls creation
-    for (int j = 0; j < size - 1; ++j) {
-      if (RandBool() || first[j] == first[j + 1]) {
-        perfect_maze[0 * size + j].right = true;
-      } else {
-        first[j + 1] = first[j];
-      }
-    }
-    perfect_maze[size - 1].right = true;
-    // 4. bottom walls creation
-    for (int j = 0; j < size; ++j) {
-      if (CheckBottomWallRule(first, perfect_maze, 0, j) && RandBool()) {
-        perfect_maze[0 * size + j].bottm = true;
-      }
-    }
-
-    /* std::cout << "first set:\n"; */
-    /* for (auto i : first) */
-    /*   std::cout << i << ' '; */
-    /* std::cout << "\n\n"; */
-
-
-  /* std::vector<int> prev(size, 0); */
-  for (int i = 1; i < size; ++i) {
-    // 1. first row creation
-    /* if (i == 4) break; */
-    std::vector<int> current = first;
+  // 1. first row creation
+  std::vector<int> prev(size, 0);
+  for (int i = 0; i < size; ++i) {
+    std::vector<int> current = prev;
 
     // remove cells with bottm wall from set
-    for (int j = 0; j < size; ++j) {
+    for (int j = 0; i != 0 && j < size; ++j) {
       if (perfect_maze[(i - 1) * size + j].bottm == true)
         current[j] = 0;
     }
@@ -156,21 +140,30 @@ std::vector<Ceil> Eller::GeneratePerfectMaze(int size) {
     // 2. join to unique set
     ToUniqueSet(current);
 
+    std::cout << i << ":";
+    for (auto k : current)
+      std::cout << k << ' ';
+    std::cout << "\n";
+
     // 3. right walls creation
-    for (int j = 0; j < size; ++j) {
-      if (j == size - 1)
-        perfect_maze[i * size + j].right = true;
-      else if (RandBool() || current[j] == current[j + 1]) {
+    for (int j = 0; j < size - 1; ++j) {
+      if (RandBool() || current[j] == current[j + 1]) {
         perfect_maze[i * size + j].right = true;
       } else {
-        current[j + 1] = current[j];
+        /* current[j + 1] = current[j]; */
+        int mutable_value = current[j + 1];
+        for (int k = 0; k < size; ++k) {
+          if (current[k] == mutable_value)
+            current[k] = current[j];
+        }
       }
     }
 
-    /* std::cout << "current set:\n"; */
-    /* for (auto k : current) */
-    /*   std::cout << k << ' '; */
-    /* std::cout << "\n\n"; */
+    std::cout << i << ":";
+    for (auto k : current)
+      std::cout << k << ' ';
+    std::cout << "\n\n";
+
 
     // 4. bottom walls creation
     for (int j = 0; j < size; ++j) {
@@ -178,14 +171,29 @@ std::vector<Ceil> Eller::GeneratePerfectMaze(int size) {
         /* std::cout << "place bot  wall" << i << ' ' << j << " " << current[j] << std::endl; */
         perfect_maze[i * size + j].bottm = true;
       }
-      if (i == size - 1)
-        perfect_maze[i * size + j].bottm = true;
     }
 
-    first = current;
 
+    prev = current;
+
+    /* if (i == 3) break; */
 
     /* std::cout << "\n\n\n"; */
+  }
+
+  // create right and bot corners
+  for (int i = 0; i < size; ++i) {
+    perfect_maze[i * size + size - 1].right = true;
+    perfect_maze[(size - 1) * size + i].bottm = true;
+  }
+
+
+  // NEED TO FIX THIS (MB NEED TO DO part 3 for right walls) WITH CORRECT UNION
+  for (int j = 0; j < size - 1; ++j) {
+    if (prev[j + 1] != prev[j]) {
+      perfect_maze[(size - 1) * size + j].right = false;
+      prev[j + 1] = prev[j]; // lishnee
+    }
   }
 
   return perfect_maze;
