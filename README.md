@@ -2,7 +2,9 @@
 
 School21 Maze project
 
-![Пример работы приложения](example.gif)
+![Maze](./materials/maze.gif)
+
+![Cave](./materials/cave.gif)
 
 ## Maze
 
