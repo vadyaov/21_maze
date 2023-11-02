@@ -5,6 +5,4 @@ Button::Button(const QString &text, QWidget *parent) : QToolButton(parent) {
   setText(text);
 }
 
-QSize Button::sizeHint() const {
-  return QSize(180, 30);
-}
+QSize Button::sizeHint() const { return QSize(180, 30); }

@@ -7,9 +7,9 @@
  * @class Button
  * @brief A custom Qt button widget with a specific text label and size.
  *
- * The `Button` class is designed to create custom push buttons in a Qt application.
- * It inherits from `QToolButton` and provides a constructor to set the button's text
- * label and a preferred size.
+ * The `Button` class is designed to create custom push buttons in a Qt
+ * application. It inherits from `QToolButton` and provides a constructor to set
+ * the button's text label and a preferred size.
  */
 class Button : public QToolButton {
   Q_OBJECT
@@ -18,8 +18,8 @@ class Button : public QToolButton {
   /**
    * @brief Constructor for the Button class.
    *
-   * Initializes the button with the specified text label and an optional parent widget.
-   * The button is set to have a preferred width and a fixed height.
+   * Initializes the button with the specified text label and an optional parent
+   * widget. The button is set to have a preferred width and a fixed height.
    *
    * @param text The text label to display on the button.
    * @param parent An optional parent widget. Default is nullptr.
@@ -37,4 +37,4 @@ class Button : public QToolButton {
   QSize sizeHint() const override;
 };
 
-#endif // BUTTON_H_
+#endif  // BUTTON_H_

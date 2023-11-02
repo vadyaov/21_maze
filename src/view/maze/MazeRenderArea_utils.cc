@@ -1,8 +1,7 @@
-#include "MazeRenderArea.h"
-
 #include <QPainter>
 #include <QPainterPath>
 
+#include "MazeRenderArea.h"
 #include "MazeWindow.h"
 
 void MazeRenderArea::DrawMaze(QPainter& p) {
@@ -25,14 +24,11 @@ void MazeRenderArea::DrawMaze(QPainter& p) {
       QPointF point3(y, x);
       QPointF point4(point3 + QPoint(length, 0.0f));
 
-      if (ctr_.At(i, j).right)
-        p.drawLine(point1, point2);
+      if (ctr_.At(i, j).right) p.drawLine(point1, point2);
 
-      if (ctr_.At(j, i).bottm)
-        p.drawLine(point3, point4);
+      if (ctr_.At(j, i).bottm) p.drawLine(point3, point4);
     }
   }
-
 }
 
 void MazeRenderArea::DrawPoints(QPainter& p) {
@@ -52,7 +48,7 @@ void MazeRenderArea::DrawPoints(QPainter& p) {
 void MazeRenderArea::DrawSolution(QPainter& p) {
   static const QColor color[] = {Qt::magenta, Qt::green, Qt::yellow, Qt::cyan};
   if (!solution.empty()) {
-    MazeWindow *sender = qobject_cast<MazeWindow*>(parentWidget());
+    MazeWindow* sender = qobject_cast<MazeWindow*>(parentWidget());
     int i = sender->SolutionColor();
 
     QPainterPath painterpath;
@@ -61,8 +57,7 @@ void MazeRenderArea::DrawSolution(QPainter& p) {
     p.setBrush(Qt::NoBrush);
 
     painterpath.moveTo(point2);
-    for (const auto& point : solution)
-      painterpath.lineTo(point);
+    for (const auto& point : solution) painterpath.lineTo(point);
     painterpath.lineTo(point1);
 
     p.drawPath(painterpath);
@@ -71,7 +66,6 @@ void MazeRenderArea::DrawSolution(QPainter& p) {
 
 void MazeRenderArea::HandleLeftMouseEvent(int x, int y) {
   if (!point1.isNull() && !point2.isNull()) {
-
     static bool first_print = true;
 
     if (first_print) {

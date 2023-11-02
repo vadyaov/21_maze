@@ -1,13 +1,13 @@
 #include "MazeRenderArea.h"
-#include "MazeWindow.h"
 
-#include <cmath>
-
-#include <QPainter>
-#include <QPainterPath>
 #include <QFileDialog>
 #include <QMouseEvent>
 #include <QObject>
+#include <QPainter>
+#include <QPainterPath>
+#include <cmath>
+
+#include "MazeWindow.h"
 
 MazeRenderArea::MazeRenderArea(QWidget* parent) : BaseRenderArea(parent) {}
 
@@ -21,8 +21,8 @@ void MazeRenderArea::paintEvent(QPaintEvent* /* event */) {
 }
 
 void MazeRenderArea::BrowseClicked() {
-  QString filename = QFileDialog::getOpenFileName(this, tr("Open .txt maze"),
-      "./examples/", tr("Text files (*.txt)"));
+  QString filename = QFileDialog::getOpenFileName(
+      this, tr("Open .txt maze"), "./examples/", tr("Text files (*.txt)"));
   try {
     ctr_.ReadMaze(filename.toStdString());
     point1 = point2 = {0, 0};
@@ -34,7 +34,7 @@ void MazeRenderArea::BrowseClicked() {
 }
 
 void MazeRenderArea::GenerateClicked() {
-  MazeWindow *sender = qobject_cast<MazeWindow*>(parentWidget());
+  MazeWindow* sender = qobject_cast<MazeWindow*>(parentWidget());
   if (sender) {
     ctr_.GenMaze(sender->GetSize());
     point1 = point2 = {0, 0};
@@ -44,6 +44,8 @@ void MazeRenderArea::GenerateClicked() {
 }
 
 void MazeRenderArea::FindSolutionClicked() {
+  if (point1.isNull() || point2.isNull()) return;
+
   solution.clear();
 
   std::pair<int, int> pt1 = ToCeilCoord(point1.x(), point1.y());
@@ -56,7 +58,8 @@ void MazeRenderArea::FindSolutionClicked() {
     // using transform algo from STL
 
     /* std::transform(solution_ceils.cbegin(), solution_ceils.cend(), */
-    /*     std::back_inserter(solution), [this](const std::pair<int, int>& coord) { */
+    /*     std::back_inserter(solution), [this](const std::pair<int, int>&
+     * coord) { */
     /*     return FindCenterPos(coord); }); */
 
     // simple understandable way of transforming
@@ -69,11 +72,9 @@ void MazeRenderArea::FindSolutionClicked() {
   }
 }
 
-void MazeRenderArea::SaveClicked() {
-  ctr_.Save();
-}
+void MazeRenderArea::SaveClicked() { ctr_.Save(); }
 
-void MazeRenderArea::mousePressEvent(QMouseEvent *event) {
+void MazeRenderArea::mousePressEvent(QMouseEvent* event) {
   if (!ctr_.Size()) return;
 
   QPoint p = event->pos();

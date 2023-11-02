@@ -1,26 +1,28 @@
 #include "CaveRenderArea.h"
 
-#include <QPainter>
 #include <QFileDialog>
-
+#include <QPainter>
 #include <QSpinBox>
 
 #include "CaveWindow.h"
 
-CaveRenderArea::CaveRenderArea(QWidget* parent) : BaseRenderArea(parent), timer{new QTimer(this)} {
+CaveRenderArea::CaveRenderArea(QWidget* parent)
+    : BaseRenderArea(parent), timer{new QTimer(this)} {
   connect(timer, &QTimer::timeout, this, &CaveRenderArea::TimerRoutine);
 }
 
-void CaveRenderArea::paintEvent(QPaintEvent * /* event */) {
+void CaveRenderArea::paintEvent(QPaintEvent* /* event */) {
   static CaveWindow* parent = qobject_cast<CaveWindow*>(parentWidget());
-  static const QColor alive_colors[] = {Qt::black, Qt::red, Qt::blue, Qt::magenta};
-  static const QColor dead_colors[] = {Qt::lightGray, Qt::darkGray, Qt::blue, Qt::darkGreen};
+  static const QColor alive_colors[] = {Qt::black, Qt::red, Qt::blue,
+                                        Qt::magenta};
+  static const QColor dead_colors[] = {Qt::lightGray, Qt::darkGray, Qt::blue,
+                                       Qt::darkGreen};
   const int color_1 = parent->LifeColor();
   const int color_2 = parent->DeathColor();
   QPainter painter(this);
   std::size_t size = ctr_.Size();
   std::size_t ceil_size = 500.0 / size;
-  
+
   for (std::size_t i = 0; i < size; ++i) {
     for (std::size_t j = 0; j < size; ++j) {
       float x = j * ceil_size;
@@ -30,14 +32,13 @@ void CaveRenderArea::paintEvent(QPaintEvent * /* event */) {
         painter.fillRect(x, y, ceil_size, ceil_size, alive_colors[color_1]);
       else
         painter.fillRect(x, y, ceil_size, ceil_size, dead_colors[color_2]);
-
     }
   }
 }
 
 void CaveRenderArea::BrowseClicked() {
-  QString filename = QFileDialog::getOpenFileName(this, tr("Open .txt cave"),
-      "./examples/", tr("Text files (*.txt)"));
+  QString filename = QFileDialog::getOpenFileName(
+      this, tr("Open .txt cave"), "./examples/", tr("Text files (*.txt)"));
   try {
     ctr_.ReadCave(filename.toStdString());
     update();
@@ -76,7 +77,6 @@ void CaveRenderArea::TimerRoutine() {
   } catch (const std::exception& e) {
     step_num = steps;
   }
-
 }
 
 void CaveRenderArea::SimulationClicked() {

@@ -2,6 +2,7 @@
 #define ELLER_H_
 
 #include <vector>
+
 #include "Ceil.h"
 
 /**
@@ -10,22 +11,22 @@
  */
 namespace maze {
 
+/**
+ * @class Eller
+ * @brief A class for generating perfect maze.
+ *
+ * The `Eller` class provides only 1 static method for generate perfect maze.
+ */
+class Eller {
+ public:
   /**
-   * @class Eller
-   * @brief A class for generating perfect maze.
+   * @brief Generating perfect maze of size 'size'.
    *
-   * The `Eller` class provides only 1 static method for generate perfect maze.
+   * @param size The size of the maze.
    */
-  class Eller {
-    public:
-      /**
-       * @brief Generating perfect maze of size 'size'.
-       *
-       * @param size The size of the maze.
-       */
-      static std::vector<Ceil> GeneratePerfectMaze(int size);
-  };
+  static std::vector<Ceil> GeneratePerfectMaze(int size);
+};
 
-} // namespace maze
+}  // namespace maze
 
-#endif // ELLER_H_
+#endif  // ELLER_H_

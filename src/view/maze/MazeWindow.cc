@@ -1,14 +1,16 @@
 #include "MazeWindow.h"
 
-#include <QGridLayout>
-#include <QSpinBox>
 #include <QComboBox>
 #include <QFont>
+#include <QGridLayout>
+#include <QSpinBox>
 
 MazeWindow::MazeWindow() : render_area_{new MazeRenderArea(this)} {
   Button *browse_button = CreateButton(tr("Open"), SLOT(BrowseClicked()));
-  Button *generate_button = CreateButton(tr("Generate"), SLOT(GenerateClicked()));
-  Button *findsol_button = CreateButton(tr("Find path"), SLOT(FindSolutionClicked()));
+  Button *generate_button =
+      CreateButton(tr("Generate"), SLOT(GenerateClicked()));
+  Button *findsol_button =
+      CreateButton(tr("Find path"), SLOT(FindSolutionClicked()));
   Button *save_button = CreateButton(tr("Save"), SLOT(SaveClicked()));
 
   size_box = new QSpinBox;
@@ -24,7 +26,8 @@ MazeWindow::MazeWindow() : render_area_{new MazeRenderArea(this)} {
   color_box->addItem("GREEN");
   color_box->addItem("YELLOW");
   color_box->addItem("BLUE");
-  connect(color_box, SIGNAL(currentIndexChanged(int)), render_area_, SLOT(update()));
+  connect(color_box, SIGNAL(currentIndexChanged(int)), render_area_,
+          SLOT(update()));
 
   QGridLayout *main_layout = new QGridLayout;
   QGridLayout *settings_layout = new QGridLayout;
@@ -43,20 +46,14 @@ MazeWindow::MazeWindow() : render_area_{new MazeRenderArea(this)} {
   setLayout(main_layout);
 }
 
-QSize MazeWindow::sizeHint() const {
-  return QSize(600, 500);
-}
+QSize MazeWindow::sizeHint() const { return QSize(600, 500); }
 
-Button* MazeWindow::CreateButton(const QString &text, const char *member) {
-  Button* button = new Button(text);
+Button *MazeWindow::CreateButton(const QString &text, const char *member) {
+  Button *button = new Button(text);
   connect(button, SIGNAL(clicked()), render_area_, member);
   return button;
 }
 
-int MazeWindow::GetSize() const {
-  return size_box->value();
-}
+int MazeWindow::GetSize() const { return size_box->value(); }
 
-int MazeWindow::SolutionColor() const {
-  return color_box->currentIndex();
-}
+int MazeWindow::SolutionColor() const { return color_box->currentIndex(); }

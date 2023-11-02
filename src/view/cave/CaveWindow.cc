@@ -1,16 +1,19 @@
 #include "CaveWindow.h"
 
-#include <QGridLayout>
-#include <QVBoxLayout>
-#include <QSpinBox>
 #include <QComboBox>
+#include <QGridLayout>
 #include <QRadioButton>
+#include <QSpinBox>
+#include <QVBoxLayout>
 
 CaveWindow::CaveWindow() : render_area_{new CaveRenderArea(this)} {
   Button *browse_button = CreateButton(tr("Open"), SLOT(BrowseClicked()));
-  Button *generate_button = CreateButton(tr("Generate"), SLOT(GenerateClicked()));
-  Button *simulation_button = CreateButton(tr("Simulate"), SLOT(SimulationClicked()));
-  simulation_button->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+  Button *generate_button =
+      CreateButton(tr("Generate"), SLOT(GenerateClicked()));
+  Button *simulation_button =
+      CreateButton(tr("Simulate"), SLOT(SimulationClicked()));
+  simulation_button->setSizePolicy(QSizePolicy::Preferred,
+                                   QSizePolicy::Preferred);
 
   life_box = new QSpinBox;
   death_box = new QSpinBox;
@@ -18,8 +21,10 @@ CaveWindow::CaveWindow() : render_area_{new CaveRenderArea(this)} {
   size_box = new QSpinBox;
   color_box_0 = new QComboBox;
   color_box_1 = new QComboBox;
-  connect(color_box_0, SIGNAL(currentIndexChanged(int)), render_area_, SLOT(update()));
-  connect(color_box_1, SIGNAL(currentIndexChanged(int)), render_area_, SLOT(update()));
+  connect(color_box_0, SIGNAL(currentIndexChanged(int)), render_area_,
+          SLOT(update()));
+  connect(color_box_1, SIGNAL(currentIndexChanged(int)), render_area_,
+          SLOT(update()));
 
   auto_ = new QRadioButton("Auto");
   manually_ = new QRadioButton("Manually");
@@ -86,12 +91,10 @@ CaveWindow::CaveWindow() : render_area_{new CaveRenderArea(this)} {
   setLayout(main_layout);
 }
 
-QSize CaveWindow::sizeHint() const {
-  return QSize(600, 500);
-}
+QSize CaveWindow::sizeHint() const { return QSize(600, 500); }
 
-Button* CaveWindow::CreateButton(const QString &text, const char *member) {
-  Button* button = new Button(text);
+Button *CaveWindow::CreateButton(const QString &text, const char *member) {
+  Button *button = new Button(text);
   connect(button, SIGNAL(clicked()), render_area_, member);
   return button;
 }
@@ -107,31 +110,22 @@ int CaveWindow::GetDeathLimit() const {
 }
 
 double CaveWindow::GetInitChance() const {
-  if (init_chance_box->value() == -1) throw std::range_error("No init probability");
+  if (init_chance_box->value() == -1)
+    throw std::range_error("No init probability");
   return static_cast<double>(init_chance_box->value() / 100.0);
 }
 
 int CaveWindow::GetSize() const {
   if (size_box->value() == -1) throw std::range_error("No size");
-    return size_box->value();
+  return size_box->value();
 }
 
-int CaveWindow::GetDelta() const {
-  return delta_box->value();
-}
+int CaveWindow::GetDelta() const { return delta_box->value(); }
 
-int CaveWindow::GetSteps() const {
-  return steps_box->value();
-}
+int CaveWindow::GetSteps() const { return steps_box->value(); }
 
-bool CaveWindow::IsAuto() const {
-  return auto_->isChecked();
-}
+bool CaveWindow::IsAuto() const { return auto_->isChecked(); }
 
-int CaveWindow::LifeColor() const {
-  return color_box_1->currentIndex();
-}
+int CaveWindow::LifeColor() const { return color_box_1->currentIndex(); }
 
-int CaveWindow::DeathColor() const {
-  return color_box_0->currentIndex();
-}
+int CaveWindow::DeathColor() const { return color_box_0->currentIndex(); }
