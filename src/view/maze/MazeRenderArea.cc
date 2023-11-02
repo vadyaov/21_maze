@@ -2,7 +2,6 @@
 #include "MazeWindow.h"
 
 #include <cmath>
-#include <iostream>
 
 #include <QPainter>
 #include <QPainterPath>

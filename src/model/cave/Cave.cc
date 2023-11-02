@@ -61,49 +61,41 @@ namespace cave {
 
     /* left */
     if (j != 0 && At(i, j - 1) == false) {
-      /* std::cout << "left "; */
       ++num;
     }
 
     /* left top */
     if (j != 0 && i != 0 && At(i - 1, j - 1) == false) {
       ++num;
-      /* std::cout << "left up "; */
     }
 
     /* top */
     if (i != 0 && At(i - 1, j) == false) {
       ++num;
-      /* std::cout << "up "; */
     }
 
     /* right top */
     if (j != Size() - 1 && i != 0 && At(i - 1, j + 1) == false) {
-      /* std::cout << "right up "; */
       ++num;
     }
 
     /* right */
     if (j != Size() - 1 && At(i, j + 1) == false) {
       ++num;
-      /* std::cout << "right "; */
     }
 
     /* right bot */
     if (j != Size() - 1 && i != Size() - 1 && At(i + 1, j + 1) == false) {
       ++num;
-      /* std::cout << "right bot "; */
     }
 
     /* bot */
     if (i != Size() - 1 && At(i + 1, j) == false) {
       ++num;
-      /* std::cout << "bot "; */
     }
 
     /* left bot */
     if (i != Size() - 1 && j != 0 && At(i + 1, j - 1) == false) {
-      /* std::cout << "left bot "; */
       ++num;
     }
 

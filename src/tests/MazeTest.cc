@@ -235,3 +235,86 @@ TEST(maze_solution, t6) {
     EXPECT_EQ(solution[i], expected_solution[i]);
 
 }
+
+namespace maze {
+  extern void ToUniqueSet(std::vector<int>& arr);
+  extern bool Lonely(const std::vector<int>& set, int j);
+}
+
+TEST(maze_eller_func1, t1) {
+  std::vector<int> set {0, 0, 0, 1, 1, 2, 3, 3, 0, 5, 7};
+  maze::ToUniqueSet(set);
+  std::vector<int> expected {4, 6, 8, 1, 1, 2, 3, 3, 9, 5, 7};
+
+  EXPECT_EQ(set, expected);
+}
+
+TEST(maze_eller_func1, t2) {
+  std::vector<int> set {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+  maze::ToUniqueSet(set);
+  std::vector<int> expected {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
+
+  EXPECT_EQ(set, expected);
+}
+
+TEST(maze_eller_func1, t3) {
+  std::vector<int> set {1, 2, 0, 4, 5, 0, 0, 8};
+  maze::ToUniqueSet(set);
+  std::vector<int> expected {1, 2, 3, 4, 5, 6, 7, 8};
+
+  EXPECT_EQ(set, expected);
+}
+
+TEST(maze_eller_gen_func2, t1) {
+  std::vector<int> set {1, 2, 3, 4};
+  for (std::size_t j = 0; j < set.size(); ++j)
+    EXPECT_EQ(Lonely(set, j), true);
+}
+
+TEST(maze_eller_gen_func2, t2) {
+  std::vector<int> set {1, 1, 4, 4};
+  for (std::size_t j = 0; j < set.size(); ++j)
+    EXPECT_EQ(Lonely(set, j), false);
+}
+
+TEST(maze_eller_gen_func2, t3) {
+  std::vector<int> set {1, 4, 4, 4};
+  for (std::size_t j = 0; j < set.size(); ++j)
+    if (j == 0)
+      EXPECT_EQ(Lonely(set, j), true);
+    else
+      EXPECT_EQ(Lonely(set, j), false);
+}
+
+TEST(maze_eller_gen_func2, t4) {
+  std::vector<int> set {1, 1, 1, 4};
+  for (std::size_t j = 0; j < set.size(); ++j)
+    if (j == set.size() - 1)
+      EXPECT_EQ(Lonely(set, j), true);
+    else
+      EXPECT_EQ(Lonely(set, j), false);
+}
+
+TEST(maze_eller_gen, t1) {
+  Maze m;
+
+  m.Generate(10);
+
+  EXPECT_EQ(m.Size(), 10);
+}
+
+TEST(maze_eller_gen, t2) {
+  Maze m;
+
+  m.Generate(25);
+
+  EXPECT_EQ(m.Size(), 25);
+}
+
+TEST(maze_eller_gen, t3) {
+  Maze m;
+
+  m.Generate(50);
+
+  EXPECT_EQ(m.Size(), 50);
+}

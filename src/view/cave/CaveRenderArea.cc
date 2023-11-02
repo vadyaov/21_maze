@@ -40,11 +40,9 @@ void CaveRenderArea::BrowseClicked() {
       "./examples/", tr("Text files (*.txt)"));
   try {
     ctr_.ReadCave(filename.toStdString());
-    /* emit ErrorOccured(fileinfo.fileName() + " loaded successfully"); */
     update();
-  } catch (const std::invalid_argument& e) {
-    /* emit ErrorOccured(e.what()); */
-    /* std::cout << "Need to handle ERROR\n"; */
+  } catch (...) {
+    // do nothing
   }
 }
 
@@ -55,8 +53,8 @@ void CaveRenderArea::GenerateClicked() {
   try {
     ctr_.InitializeCave(parent->GetSize(), parent->GetInitChance());
     update();
-  } catch (const std::exception& e) {
-    /* std::cout << "Need to handle ERROR\n"; */
+  } catch (...) {
+    // do nothing
   }
 }
 
@@ -82,7 +80,7 @@ void CaveRenderArea::TimerRoutine() {
 }
 
 void CaveRenderArea::SimulationClicked() {
-  if (timer->isActive()) return; // if simulating process on --> then do nothing
+  if (timer->isActive()) return;
 
   static const CaveWindow* parent = qobject_cast<CaveWindow*>(parentWidget());
   try {
@@ -93,7 +91,7 @@ void CaveRenderArea::SimulationClicked() {
       ctr_.MakeNextGen(parent->GetLifeLimit(), parent->GetDeathLimit());
       update();
     }
-  } catch (const std::exception& e) {
-    /* std::cout << "Need to handle ERROR\n"; */
+  } catch (...) {
+    // do nothing
   }
 }

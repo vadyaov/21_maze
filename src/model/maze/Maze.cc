@@ -1,7 +1,6 @@
 #include "Maze.h"
 #include "Eller.h"
 
-#include <iostream>
 #include <ctime>
 #include <algorithm>
 
