@@ -100,6 +100,11 @@ class Maze {
    */
   const std::vector<Ceil>& GetCeils() const& noexcept;
 
+  /**
+   * @brief Maze cleaner.
+   */
+  void Clear() noexcept;
+
  private:
   /**
    * @brief Helper method to perform a wave search in the maze.

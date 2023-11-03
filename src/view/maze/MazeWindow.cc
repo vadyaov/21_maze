@@ -14,6 +14,7 @@ MazeWindow::MazeWindow() : render_area_{new MazeRenderArea(this)} {
   Button *findsol_button =
       CreateButton(tr("Find path"), SLOT(FindSolutionClicked()));
   Button *save_button = CreateButton(tr("Save"), SLOT(SaveClicked()));
+  Button *clear_button = CreateButton(tr("Clear"), SLOT(ClearClicked()));
 
   size_box = new QSpinBox;
   color_box = new QComboBox;
@@ -33,15 +34,17 @@ MazeWindow::MazeWindow() : render_area_{new MazeRenderArea(this)} {
 
   QGridLayout *main_layout = new QGridLayout;
   QGridLayout *settings_layout = new QGridLayout;
+  settings_layout->setSpacing(10);
 
   main_layout->addWidget(render_area_, 0, 0, 2, 1);
 
-  settings_layout->addWidget(browse_button, 0, 0, 1, 1);
-  settings_layout->addWidget(save_button, 0, 1, 1, 1);
+  settings_layout->addWidget(browse_button, 0, 0, 1, 2);
   settings_layout->addWidget(generate_button, 1, 0, 1, 1);
   settings_layout->addWidget(size_box, 1, 1, 1, 1);
   settings_layout->addWidget(findsol_button, 2, 0, 1, 1);
   settings_layout->addWidget(color_box, 2, 1, 1, 1);
+  settings_layout->addWidget(save_button, 3, 0, 1, 1);
+  settings_layout->addWidget(clear_button, 3, 1, 1, 1);
 
   main_layout->addLayout(settings_layout, 0, 2, 1, 1);
 

@@ -76,12 +76,12 @@ void ToUniqueSet(std::vector<int>& arr) {
 }
 
 bool Lonely(const std::vector<int>& set, int j) {
-  if (j == 0 && set[j + 1] != set[j]) return true;
+  if (j > 0 && static_cast<std::size_t>(j) < set.size() - 1)
+    return set[j - 1] != set[j] && set[j + 1] != set[j];
 
-  if (static_cast<std::size_t>(j) == set.size() - 1 && set[j - 1] != set[j])
-    return true;
-
-  return set[j - 1] != set[j] && set[j + 1] != set[j];
+  return (j == 0 && set[j + 1] != set[j]) ||
+         (static_cast<std::size_t>(j) == set.size() - 1 &&
+          set[j - 1] != set[j]);
 }
 
 bool AloneWithoutWall(const std::vector<int>& set, std::vector<Ceil>& cells,

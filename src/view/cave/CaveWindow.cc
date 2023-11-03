@@ -16,6 +16,8 @@ CaveWindow::CaveWindow() : render_area_{new CaveRenderArea(this)} {
       CreateButton(tr("Simulate"), SLOT(SimulationClicked()));
   simulation_button->setSizePolicy(QSizePolicy::Preferred,
                                    QSizePolicy::Preferred);
+  Button *clear_button = CreateButton(tr("Clear"), SLOT(ClearClicked()));
+  clear_button->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
 
   life_box = new QSpinBox;
   death_box = new QSpinBox;
@@ -71,6 +73,7 @@ CaveWindow::CaveWindow() : render_area_{new CaveRenderArea(this)} {
 
   QGridLayout *main_layout = new QGridLayout;
   QGridLayout *settings_layout = new QGridLayout;
+  settings_layout->setSpacing(10);
 
   settings_layout->addWidget(browse_button, 0, 0, 1, 3);
   settings_layout->addWidget(generate_button, 1, 0, 1, 1);
@@ -81,6 +84,7 @@ CaveWindow::CaveWindow() : render_area_{new CaveRenderArea(this)} {
   settings_layout->addWidget(size_box, 1, 1, 1, 1);
   settings_layout->addWidget(auto_, 3, 1, 1, 1);
   settings_layout->addWidget(manually_, 3, 2, 1, 1);
+  settings_layout->addWidget(clear_button, 4, 0, 2, 1);
   settings_layout->addWidget(steps_box, 4, 1, 1, 1);
   settings_layout->addWidget(delta_box, 4, 2, 1, 1);
   settings_layout->addWidget(color_box_0, 5, 1, 1, 1);

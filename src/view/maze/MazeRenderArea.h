@@ -50,6 +50,11 @@ class MazeRenderArea : public BaseRenderArea {
    */
   void SaveClicked();
 
+  /**
+   * @brief Slot to handle the "Clear" button click event.
+   */
+  void ClearClicked();
+
  protected:
   /**
    * @brief Paint event handler for rendering the maze.

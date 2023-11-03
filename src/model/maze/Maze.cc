@@ -152,4 +152,6 @@ void Maze::SaveToFile() const {
   filestream.close();
 }
 
+void Maze::Clear() noexcept { ceils_.clear(); }
+
 }  // namespace maze

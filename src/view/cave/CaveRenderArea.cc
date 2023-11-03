@@ -98,4 +98,9 @@ void CaveRenderArea::SimulationClicked() {
   }
 }
 
+void CaveRenderArea::ClearClicked() {
+  ctr_.Clear();
+  update();
+}
+
 }  // namespace cave

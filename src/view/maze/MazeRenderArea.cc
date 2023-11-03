@@ -76,6 +76,13 @@ void MazeRenderArea::FindSolutionClicked() {
 
 void MazeRenderArea::SaveClicked() { ctr_.Save(); }
 
+void MazeRenderArea::ClearClicked() {
+  point1 = {0, 0}, point2 = {0, 0};
+  solution.clear();
+  ctr_.Clear();
+  update();
+}
+
 void MazeRenderArea::mousePressEvent(QMouseEvent* event) {
   if (!ctr_.Size()) return;
 

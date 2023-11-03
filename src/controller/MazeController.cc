@@ -21,4 +21,6 @@ Ceil& Controller::At(int i, int j) { return m.GetCeil(i, j); }
 
 void Controller::Save() const { m.SaveToFile(); }
 
+void Controller::Clear() noexcept { m.Clear(); }
+
 }  // namespace maze

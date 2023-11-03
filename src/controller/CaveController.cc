@@ -14,4 +14,6 @@ void Controller::MakeNextGen(int life, int death) {
 
 void Controller::InitializeCave(int size, double prob) { c.Init(size, prob); }
 
+void Controller::Clear() noexcept { c.Clear(); }
+
 }  // namespace cave

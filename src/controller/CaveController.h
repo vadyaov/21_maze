@@ -57,6 +57,11 @@ class Controller {
    */
   void Save() const;
 
+  /**
+   * @brief Clears the current cave.
+   */
+  void Clear() noexcept;
+
  private:
   Cave c; /**< The underlying cave instance. */
 };

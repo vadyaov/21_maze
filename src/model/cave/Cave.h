@@ -56,6 +56,12 @@ class Cave {
    */
   void NextGeneration(int life_lim, int death_lim);
 
+  /**
+   * @brief Clears current cave.
+   *
+   */
+  void Clear() noexcept;
+
  private:
   /**
    * @brief Counts the number of live neighbors around a specified cell.

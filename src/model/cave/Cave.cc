@@ -94,4 +94,6 @@ int Cave::CountAliveAround(std::size_t i, std::size_t j) const {
   return num;
 }
 
+void Cave::Clear() noexcept { ceils_.clear(); }
+
 }  // namespace cave

@@ -48,6 +48,11 @@ class CaveRenderArea : public BaseRenderArea {
   void SimulationClicked();
 
   /**
+   * @brief Slot to handle the "Clear" button click event.
+   */
+  void ClearClicked();
+
+  /**
    * @brief Slot to handle the timer routine for simulating cave generation.
    */
   void TimerRoutine();

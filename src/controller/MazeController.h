@@ -62,6 +62,11 @@ class Controller {
    */
   void Save() const;
 
+  /**
+   * @brief Clears the current maze.
+   */
+  void Clear() noexcept;
+
  private:
   Maze m; /**< The underlying maze instance. */
 };
