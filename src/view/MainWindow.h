@@ -24,8 +24,8 @@ class MainWindow : public QTabWidget {
    * @param parent The parent widget.
    */
   MainWindow(QWidget *parent = nullptr) : QTabWidget(parent) {
-    MazeWindow *maze_window = new MazeWindow;
-    CaveWindow *cave_window = new CaveWindow;
+    maze::MazeWindow *maze_window = new maze::MazeWindow;
+    cave::CaveWindow *cave_window = new cave::CaveWindow;
     addTab(maze_window, QString("Maze"));
     addTab(cave_window, QString("Cave"));
 

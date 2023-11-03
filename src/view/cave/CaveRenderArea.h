@@ -10,6 +10,8 @@ QT_BEGIN_NAMESPACE
 class QPainter;
 QT_END_NAMESPACE
 
+namespace cave {
+
 /**
  * @class CaveRenderArea
  * @brief A rendering area for displaying and simulating caves.
@@ -61,5 +63,7 @@ class CaveRenderArea : public BaseRenderArea {
   cave::Controller ctr_; /**< The controller for cave simulation. */
   QTimer *timer;         /**< The timer for automatic simulation. */
 };
+
+}  // namespace cave
 
 #endif  // CAVERENDERAREA_H_

@@ -12,6 +12,8 @@ class QComboBox;
 class QRadioButton;
 QT_END_NAMESPACE
 
+namespace cave {
+
 /**
  * @class CaveWindow
  * @brief The main window for displaying and simulating caves.
@@ -132,5 +134,7 @@ class CaveWindow : public QWidget {
   QComboBox *color_box_0; /**< Combo box for selecting death cell color. */
   QComboBox *color_box_1; /**< Combo box for selecting life cell color. */
 };
+
+}  // namespace cave
 
 #endif  // CAVEWINDOW_H_

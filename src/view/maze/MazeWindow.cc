@@ -5,6 +5,8 @@
 #include <QGridLayout>
 #include <QSpinBox>
 
+namespace maze {
+
 MazeWindow::MazeWindow() : render_area_{new MazeRenderArea(this)} {
   Button *browse_button = CreateButton(tr("Open"), SLOT(BrowseClicked()));
   Button *generate_button =
@@ -57,3 +59,5 @@ Button *MazeWindow::CreateButton(const QString &text, const char *member) {
 int MazeWindow::GetSize() const { return size_box->value(); }
 
 int MazeWindow::SolutionColor() const { return color_box->currentIndex(); }
+
+}  // namespace maze

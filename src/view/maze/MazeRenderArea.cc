@@ -9,6 +9,8 @@
 
 #include "MazeWindow.h"
 
+namespace maze {
+
 MazeRenderArea::MazeRenderArea(QWidget* parent) : BaseRenderArea(parent) {}
 
 void MazeRenderArea::paintEvent(QPaintEvent* /* event */) {
@@ -89,3 +91,5 @@ void MazeRenderArea::mousePressEvent(QMouseEvent* event) {
     update();
   }
 }
+
+}  // namespace maze

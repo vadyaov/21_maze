@@ -9,6 +9,8 @@ class QPainter;
 class QMouseEvent;
 QT_END_NAMESPACE
 
+namespace maze {
+
 /**
  * @class MazeRenderArea
  * @brief A rendering area for displaying and interacting with mazes.
@@ -124,5 +126,6 @@ class MazeRenderArea : public BaseRenderArea {
   QPointF point2;        /**< The second selected point for interaction. */
   std::vector<QPointF> solution; /**< The solution path for maze solving. */
 };
+}  // namespace maze
 
 #endif  // MAZERENDERAREA_H_

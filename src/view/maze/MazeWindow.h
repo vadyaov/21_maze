@@ -11,6 +11,8 @@ class QSpinBox;
 class QComboBox;
 QT_END_NAMESPACE
 
+namespace maze {
+
 /**
  * @class MazeWindow
  * @brief The main window for displaying and interacting with mazes.
@@ -64,5 +66,6 @@ class MazeWindow : public QWidget {
   QSpinBox *size_box;           /**< Spin box for selecting maze size. */
   QComboBox *color_box;         /**< Combo box for selecting solution color. */
 };
+}  // namespace maze
 
 #endif  // MAZEWINDOW_H_

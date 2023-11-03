@@ -4,6 +4,8 @@
 #include "MazeRenderArea.h"
 #include "MazeWindow.h"
 
+namespace maze {
+
 void MazeRenderArea::DrawMaze(QPainter& p) {
   std::size_t sz = ctr_.Size();
 
@@ -115,3 +117,5 @@ std::pair<int, int> MazeRenderArea::ToCeilCoord(int x, int y) {
 
   return {row, col};
 }
+
+}  // namespace maze

@@ -6,6 +6,8 @@
 #include <QSpinBox>
 #include <QVBoxLayout>
 
+namespace cave {
+
 CaveWindow::CaveWindow() : render_area_{new CaveRenderArea(this)} {
   Button *browse_button = CreateButton(tr("Open"), SLOT(BrowseClicked()));
   Button *generate_button =
@@ -129,3 +131,5 @@ bool CaveWindow::IsAuto() const { return auto_->isChecked(); }
 int CaveWindow::LifeColor() const { return color_box_1->currentIndex(); }
 
 int CaveWindow::DeathColor() const { return color_box_0->currentIndex(); }
+
+}  // namespace cave

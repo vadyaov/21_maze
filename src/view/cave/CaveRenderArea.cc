@@ -6,6 +6,8 @@
 
 #include "CaveWindow.h"
 
+namespace cave {
+
 CaveRenderArea::CaveRenderArea(QWidget* parent)
     : BaseRenderArea(parent), timer{new QTimer(this)} {
   connect(timer, &QTimer::timeout, this, &CaveRenderArea::TimerRoutine);
@@ -95,3 +97,5 @@ void CaveRenderArea::SimulationClicked() {
     // do nothing
   }
 }
+
+}  // namespace cave
